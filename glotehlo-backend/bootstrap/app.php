@@ -13,7 +13,14 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+         $middleware->statefulApi(); //an API that is capable of maintaining a user session across multiple requests using traditional web mechanics
+         $middleware->validateCsrfTokens(
+    except: [
+        'api/login',
+        'api/logout',
+    ]
+);
+
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(

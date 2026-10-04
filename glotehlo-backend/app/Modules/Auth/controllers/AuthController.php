@@ -1,0 +1,65 @@
+<?php
+
+namespace App\Modules\Auth\controllers;
+
+use  App\Http\controllers\Controller;
+
+use App\Modules\Auth\services\AuthService;
+
+use Illuminate\Http\Request;
+
+
+
+class AuthController extends Controller {
+
+public function __construct (
+    private AuthService $authService
+)
+{} //dependec
+
+
+
+public function login (Request $request) {
+    $validatedData = $request -> validate([
+
+      'email' => 'required
+      |email',
+      'password' => 'required|min:8',
+    ]);
+
+    $user = $this -> authService -> login ($validatedData);
+
+
+    $request->session()->regenerate();
+
+    return response() -> json([
+        'message' => 'logged in sucessfully',
+        'data' => $user
+    ], 201);
+
+
+}
+
+
+
+
+
+public function me(Request $request)
+{
+    return response()->json($request->user());
+}
+
+
+
+public function logout (Request $request) {
+
+
+    $this->authService->logout($request);
+
+ return response () -> json ([
+    'message' => 'user logged out '
+ ]);
+}
+
+
+}
