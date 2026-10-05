@@ -8,8 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Exception;
 
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
-use App\Modules\Users\Models\User;
+
 
 
 

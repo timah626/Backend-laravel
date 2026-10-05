@@ -18,6 +18,11 @@ return Application::configure(basePath: dirname(__DIR__))
     except: [
         'api/login',
         'api/logout',
+        'api/departments/{departmentId}/interns',
+        'api/sites',
+        'api/departments',
+        'api/sites/*/departments',
+
     ]
 );
 
@@ -27,3 +32,7 @@ return Application::configure(basePath: dirname(__DIR__))
             fn (Request $request) => $request->is('api/*') || $request->expectsJson(),
         );
     })->create();
+
+
+
+

@@ -32,6 +32,13 @@ class DatabaseSeeder extends Seeder
         'qr_slug' => 'eng-hq',
     ]);
 
+
+
+  
+
+
+
+
     $marketing = Department::forceCreate([
         'site_id' => $site->id,
         'name' => 'Marketing',
@@ -68,9 +75,20 @@ class DatabaseSeeder extends Seeder
         'site_id' => $site->id,
         'department_id' => $engineering->id,
     ]);
+
 }
 
 
+
+ foreach (range(11, 20) as $n) {
+    User::forceCreate([
+        'name' => "Intern $n",
+        'email' => "intern$n@glotehlo.com",
+        'password' => 'password',
+        'role' => 'intern',
+        'site_id' => $site->id,
+        'department_id' => $marketing->id,
+    ]);}
 
 
 }

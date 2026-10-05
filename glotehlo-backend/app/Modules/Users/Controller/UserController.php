@@ -1,0 +1,48 @@
+<?php
+
+namespace App\Modules\Users\Controller;
+
+use  App\Http\controllers\Controller;
+
+use App\Modules\Users\Services\UserService;
+
+use Illuminate\Http\Request;
+
+
+
+
+class UserController extends Controller {
+
+public  function __construct (
+    private UserService $userService 
+){}
+
+
+
+public function getInterns(Request $request, string $departmentId)
+{
+    $interns = $this->userService->getInternsByDepartment(
+        $request->user(),
+        $departmentId
+    );
+
+    return response()->json(['data' => $interns], 200);
+}
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
