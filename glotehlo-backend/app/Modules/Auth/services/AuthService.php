@@ -36,9 +36,7 @@ class AuthService {
 
       
 
-
-    
-       print_r('printing user now');
+      print_r('printing user now');
       return ['user' => $user];
 
 

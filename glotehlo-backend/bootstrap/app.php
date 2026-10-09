@@ -29,15 +29,15 @@ return Application::configure(basePath: dirname(__DIR__))
          $middleware->validateCsrfTokens(
     except: [
         'api/login',
-        'api/logout',
-        'api/departments/{departmentId}/interns',
-        'api/sites',
-        'api/departments',
-        'api/sites/*/departments',
-        'api/sites/*/networks',
-        'api/sites/*/allnetworks',
-        'api/clock-in',
-        'api/clock-out',
+        //'api/logout',
+       // 'api/departments/{departmentId}/interns',
+       // 'api/sites',
+       // 'api/departments',
+       // 'api/sites/*/departments',
+       // 'api/sites/*/networks',
+       // 'api/sites/*/allnetworks',
+       // 'api/clock-in',
+       // 'api/clock-out',
 
     ]
 
