@@ -6,7 +6,7 @@ use Illuminate\Foundation\Configuration\Middleware;
 
 use Illuminate\Validation\ValidationException;
 
-use Throwable;
+
 
 use Illuminate\Auth\AuthenticationException;
 
