@@ -5,7 +5,7 @@ namespace App\Modules\Auth\Services;
 use App\Modules\Users\Repository\UserRepository;
 
 use Illuminate\Support\Facades\Hash;
-use Exception;
+
 
 use Illuminate\Support\Facades\Auth;
 
