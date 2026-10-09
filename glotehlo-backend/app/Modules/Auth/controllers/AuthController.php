@@ -2,9 +2,9 @@
 
 namespace App\Modules\Auth\controllers;
 
-use  App\Http\controllers\Controller;
+use  App\Http\Controllers\Controller;
 
-use App\Modules\Auth\services\AuthService;
+use App\Modules\Auth\Services\AuthService;
 
 use Illuminate\Http\Request;
 

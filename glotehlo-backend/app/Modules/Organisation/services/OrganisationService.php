@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Organisation\services;
+namespace App\Modules\Organisation\Services;
 
 use App\Modules\Organisation\Repository\OrganisationRepository;
 

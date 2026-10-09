@@ -1,9 +1,9 @@
 <?php
 
 
-namespace App\Modules\EvidenceAndScoring\services;
+namespace App\Modules\EvidenceAndScoring\Services;
 
-use App\Modules\OfficeNetworks\services\OfficeNetworkService;
+use App\Modules\OfficeNetworks\Services\OfficeNetworkService;
 
 
 use App\Modules\EvidenceAndScoring\Repository\DeviceRepository;

@@ -2,12 +2,12 @@
 
 namespace App\Modules\OfficeNetworks\controllers;
 
-use  App\Http\controllers\Controller;
+use  App\Http\Controllers\Controller;
 
-use App\Modules\Organisation\repository\OrganisationRepository;
+use App\Modules\Organisation\Repository\OrganisationRepository;
 
 
-use App\Modules\OfficeNetworks\services\OfficeNetworkService;
+use App\Modules\OfficeNetworks\Services\OfficeNetworkService;
 
 
 use Illuminate\Http\Request;

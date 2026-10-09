@@ -3,9 +3,9 @@
 
 namespace  App\Modules\Organisation\controllers ;
 
-use  App\Http\controllers\Controller;
+use  App\Http\Controllers\Controller;
 
-use App\Modules\Organisation\services\OrganisationService;
+use App\Modules\Organisation\Services\OrganisationService;
 
 use Illuminate\Http\Request;
 
