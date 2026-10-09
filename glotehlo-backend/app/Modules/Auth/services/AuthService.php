@@ -9,6 +9,8 @@ use Exception;
 
 use Illuminate\Support\Facades\Auth;
 
+use App\Exceptions\AppException;
+
 
 
 
@@ -24,11 +26,19 @@ class AuthService {
     $user = $this -> userRepository-> findByEmail ($data ['email']);
 
     if ( !$user) {
-        throw new Exception ("user not found");
+        throw new AppException(
+          'INVALID_CREDENTIALS',
+          'invalid email or password',
+           401
+);
     }
 
     if  (!Hash::check($data['password'], $user->password)) {
-        throw new Exception ('invalid credentials');
+         throw new AppException(
+          'INVALID_CREDENTIALS',
+          'invalid email or password',
+           401
+);
     }
 
 
@@ -36,7 +46,7 @@ class AuthService {
 
       
 
-      print_r('printing user now');
+     
       return ['user' => $user];
 
 

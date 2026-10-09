@@ -16,6 +16,8 @@ use App\Modules\Attendance\services\AttendanceMessageService;
 
 use Illuminate\Support\Facades\DB;
 
+use App\Exceptions\AppException;
+
 
 
 
@@ -48,21 +50,29 @@ public function clock($ip, array $data)
     if ($existingEvent) {
         return ['event' => $existingEvent, 'day' => null, 'already_recorded' => true];
 
-        
+
     }
 
 
     $department = $this->organisationRepository->findDepartmentBySlug($data['slug']);
 
     if (! $department) {
-        throw new \Exception('NOT_FOUND');
+        throw new AppException(
+          'NOT_FOUND',
+          'Not found dear',
+           404
+);
     }
 
 
     $user = $this->userRepository->findByEmail(strtolower($data['email']));
 
     if (! $user || ! $user->active) {
-        throw new \Exception('INVALID_USER');
+        throw new AppException(
+          'INVALID_USER',
+          'Not allowed',
+           403
+);
     }
 
 
@@ -76,7 +86,13 @@ public function clock($ip, array $data)
 
 
     if (! $site) {
-    throw new \Exception('NOT_FOUND');
+      throw new AppException(
+          'NOT_FOUND',
+          'Not found dear',
+           404
+);
+
+
      }
 
 

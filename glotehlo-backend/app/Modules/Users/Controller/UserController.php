@@ -30,6 +30,30 @@ public function getInterns(Request $request, string $departmentId)
 }
 
 
+
+
+
+public function createAccount(Request $request, array $draft)
+{
+
+     $validatedData = $request -> validate([
+
+      'email' => 'required
+      |email',
+      'school' => 'required',
+      'level' => 'required',
+      'departmentname' => 'required'
+
+
+       
+    ]);
+
+    $newInterns = $this->userService->createAccount(  $validatedData );
+
+    return response()->json(['data' => $newInterns], 200);
+}
+
+
 }
 
 
