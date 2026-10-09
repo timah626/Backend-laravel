@@ -33,9 +33,8 @@ public function login (Request $request) {
     $request->session()->regenerate();
 
     return response() -> json([
-        'message' => 'logged in sucessfully',
         'data' => $user
-    ], 201);
+    ], 200);
 
 
 }
@@ -58,7 +57,7 @@ public function logout (Request $request) {
 
  return response () -> json ([
     'message' => 'user logged out '
- ]);
+ ], 200);
 }
 
 
