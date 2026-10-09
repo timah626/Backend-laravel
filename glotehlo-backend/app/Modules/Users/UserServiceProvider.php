@@ -17,6 +17,7 @@ class UserServiceProvider extends ServiceProvider
         
         Route::middleware('api')
             ->prefix('api')
-            ->group(__DIR__ . '/routes/api.php');
+            ->group(__DIR__ . '/routes/api.php');      // i like it
+        
     }
 }
