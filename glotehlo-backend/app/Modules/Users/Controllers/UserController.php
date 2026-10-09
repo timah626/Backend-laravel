@@ -2,7 +2,7 @@
 
 namespace App\Modules\Users\Controller;
 
-use  App\Http\controllers\Controller;
+use  App\Http\Controllers\Controller;
 
 use App\Modules\Users\Services\UserService;
 

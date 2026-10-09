@@ -1,5 +1,5 @@
 <?php
-namespace App\Modules\OfficeNetworks\services;
+namespace App\Modules\OfficeNetworks\Services;
 
 
 

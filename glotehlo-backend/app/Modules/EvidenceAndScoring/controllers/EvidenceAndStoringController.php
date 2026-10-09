@@ -3,8 +3,8 @@
 
 namespace App\Modules\EvidenceAndStoring\controllers;
 
-use  App\Http\controllers\Controller;
-use App\Modules\EvidenceAndScoring\services\EvidenceAndScoringService;
+use  App\Http\Controllers\Controller;
+use App\Modules\EvidenceAndScoring\Services\EvidenceAndScoringService;
 
 
 
