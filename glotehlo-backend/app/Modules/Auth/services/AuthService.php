@@ -37,9 +37,7 @@ class AuthService {
       
 
 
-      if( $user -> role == 'admin'){
-        print_r('logged in sucessfully');
-      };
+    
        print_r('printing user now');
       return ['user' => $user];
 

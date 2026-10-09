@@ -20,7 +20,7 @@ class OrganisationService {
  public function createSites (array $data, $user ) {
 
     if (! $this->userPermission->can($user, 'manage_sites')) {
-    throw new \Exception('FORBIDDEN')
+    abort(403, 'Forbidden');
     ;}
 
 
@@ -44,7 +44,7 @@ class OrganisationService {
  public function createDepartment($user, array $validatedData, string $siteId)
 {
     if (! $this->userPermission->can($user, 'manage_departments')) {
-        throw new \Exception('FORBIDDEN');
+        abort(403, 'Forbidden');
     }
 
     $validatedData['site_id'] = $siteId;
@@ -59,7 +59,7 @@ class OrganisationService {
 public function listDepartments($user,  string $siteId)
 {
     if (! $this->userPermission->can($user, 'manage_departments')) {
-        throw new \Exception('FORBIDDEN');
+         abort(403, 'Forbidden');
     }
 
 

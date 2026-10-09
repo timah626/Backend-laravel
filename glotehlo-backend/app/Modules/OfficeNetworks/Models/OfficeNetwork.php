@@ -11,4 +11,5 @@ class OfficeNetwork extends Model
 
     protected $table = 'office_networks';
     protected $guarded = [];
+    public $timestamps = false;
 }

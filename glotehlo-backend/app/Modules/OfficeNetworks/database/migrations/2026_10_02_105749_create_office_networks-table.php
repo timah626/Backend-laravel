@@ -14,9 +14,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        
-        
-        Schema::create('office_networks', function (Blueprint $table) {
+
+
+    Schema::create('office_networks', function (Blueprint $table) {
 
 
     $table->ulid('id')->primary();
@@ -42,9 +42,6 @@ return new class extends Migration
 
 
 
-
-
-      
 });
 
 
@@ -56,14 +53,14 @@ DB::statement(
     );
 
 
-        
-    
 
 
 
-        
-        
-        
+
+
+
+
+
     }
 
     /**

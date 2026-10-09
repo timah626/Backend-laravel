@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('departments', function (Blueprint $table) {
         $table->ulid('id')->primary();
-        $table->foreignUlid('site_id')->constrained('sites')->restrictOnDelete();  //do not delete  site if  a valid department still belongs to it though
+        $table->foreignUlid('site_id')->constrained('sites')->restrictOnDelete();  //do not delete  site if  a valid department still belongs to it though . oh timah you forget like crazy
         $table->string('name', 100);
         $table->string('qr_slug', 40)->unique();
         $table->timestamps();

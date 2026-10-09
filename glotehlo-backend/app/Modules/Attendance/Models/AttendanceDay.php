@@ -11,4 +11,20 @@ class AttendanceDay extends Model
 
     protected $table = 'attendance_days';
     protected $guarded = [];
+    public $timestamps = false;
+
+
+
+
+    protected function casts(): array
+{
+    return [
+        'date'        => 'date',
+        'first_in_at' => 'datetime',
+        'last_out_at' => 'datetime',
+        'late'        => 'boolean',
+    ];
+}
+
+
 }

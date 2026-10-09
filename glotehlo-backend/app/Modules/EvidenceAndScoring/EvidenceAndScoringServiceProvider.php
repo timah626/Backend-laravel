@@ -11,5 +11,8 @@ class EvidenceAndScoringServiceProvider  extends ServiceProvider
     {
         $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
 
+
+        
+
     }
 }

@@ -12,8 +12,20 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
     )
+
+
+
+
+
+    
+
+
+
+
     ->withMiddleware(function (Middleware $middleware): void {
          $middleware->statefulApi(); //an API that is capable of maintaining a user session across multiple requests using traditional web mechanics
+
+         $middleware->trustProxies(at: '*');
          $middleware->validateCsrfTokens(
     except: [
         'api/login',
@@ -22,8 +34,14 @@ return Application::configure(basePath: dirname(__DIR__))
         'api/sites',
         'api/departments',
         'api/sites/*/departments',
+        'api/sites/*/networks',
+        'api/sites/*/allnetworks',
+        'api/clock-in',
+        'api/clock-out',
 
     ]
+
+
 );
 
     })

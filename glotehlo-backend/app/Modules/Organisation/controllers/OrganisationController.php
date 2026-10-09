@@ -23,13 +23,13 @@ class OrganisationController extends Controller {
  public function createSites ( Request $request   ) {
 
   $site = $this->organisationService->createSites(
-    
-  
-  
-  
-        $request-> all(), 
+
+
+
+
+        $request-> all(),
         $request->user(),
-       
+
     );
 
     return (response () -> json ([
@@ -47,9 +47,9 @@ class OrganisationController extends Controller {
   $validatedData = $request -> validate([
 
       'name' => 'required',
-      
+
     ]);
-  
+
 
 
 
@@ -77,8 +77,10 @@ public function getDepartmentsbySite(Request $request, string $siteId)
         $siteId,
     );
 
-    return response()->json(['data' => $departments], 200);
+    return response()->json(['data' => $departments], 201);
 }
+
+
 
 
 

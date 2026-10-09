@@ -23,7 +23,7 @@ public function can(User $user, string $action, $resource = null): bool
     }
 
     if ($resource === null) {
-        return true;
+        return true; //if the action is true and no object to inspect ,  let it go
     }
 
     if ($user->role === 'admin') {

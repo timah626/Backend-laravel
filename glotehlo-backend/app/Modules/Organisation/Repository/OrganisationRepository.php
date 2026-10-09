@@ -28,17 +28,41 @@ class OrganisationRepository {
 
 
 
-
     public function createDepartment (array $validatedData): ?Department {
 
       return Department::create($validatedData);
     }
 
-  
+
+
+
+
 public function findDepartmentbySite(string $siteId): Collection
 {
     return Department::where('site_id', $siteId)
             ->get();
 }
+
+
+
+
+    public function findSite(string $siteId): ?Site
+    {
+        return Site::where('id', $siteId)->first();
+    }
+
+
+
+     public function findDepartmentBySlug(string $slug): ?Department
+    {
+        return Department::where('qr_slug', $slug)->first();
+    }
+
+
 }
-    
+
+
+
+
+
+
