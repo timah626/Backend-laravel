@@ -4,6 +4,7 @@ namespace App\Modules\Organisation\Services;
 
 use App\Modules\Organisation\Repository\OrganisationRepository;
 
+use App\Exceptions\AppException;
 
 use Illuminate\Support\Str;
 
@@ -13,7 +14,7 @@ use App\Modules\Users\Services\UserPermission;
 
 class OrganisationService {
 
- public function __construct (private OrganisationRepository $organisationRepository, 
+ public function __construct (private OrganisationRepository $organisationRepository,
  private UserPermission  $userPermission,
  ) {}
 
@@ -21,9 +22,17 @@ class OrganisationService {
 
  public function createSites (array $data, $user ) {
 
-    if (! $this->userPermission->can($user, 'manage_sites')) {
-    abort(403, 'Forbidden');
-    ;}
+    if (! $this->userPermission->can($user, 'manage_sites'))
+     {
+         {
+
+             throw new AppException
+             (
+                'FORBIDDEN',
+                'NOT ALLOWED TO DO THAT',
+                 403
+             );}
+    }
 
 
 
@@ -44,10 +53,11 @@ class OrganisationService {
 
 
  public function createDepartment($user, array $validatedData, string $siteId)
-{
-    if (! $this->userPermission->can($user, 'manage_departments')) {
+ {
+    if (! $this->userPermission->can($user, 'manage_departments'))
+     {
         abort(403, 'Forbidden');
-    }
+     }
 
     $validatedData['site_id'] = $siteId;
 
@@ -75,7 +85,7 @@ public function listDepartments($user,  string $siteId)
 
 
 
- 
+
  }
 
 
@@ -86,5 +96,4 @@ public function listDepartments($user,  string $siteId)
 
 
 
-  
-  
+

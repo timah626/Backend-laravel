@@ -14,15 +14,11 @@ use App\Modules\Onboarding\Repository\ApplicationRepository;
 
 class RemoveRejectedApplications extends Command
 {
-     public function __construct (
-        private ApplicationRepository $applicationRepository
-     ){}
-
-    public function handle()
-    {
-        $cutoff  = now()->subDays(10);
-        $expiredApplications = $this ->applicationRepository->findRejectedBeforeTenDays($cutoff);
-    }
+     public function handle(ApplicationRepository $applicationRepository)
+     {
+         $cutoff = now()->subDays(10);
+         $expired = $applicationRepository->findRejectedBeforeTenDays($cutoff);
+     }
 
 
 }
