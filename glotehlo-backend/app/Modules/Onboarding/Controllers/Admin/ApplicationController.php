@@ -80,7 +80,8 @@ class ApplicationController extends Controller {
 
             return response()->json
              ([
-                 'data' => [
+                 'data' =>
+                     [
                          'user' => $application['user'],
                          'temporary_password' => $application['temporary_password'],
                      ],

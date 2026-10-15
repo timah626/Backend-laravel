@@ -39,15 +39,8 @@ class OrganisationService {
     $createdSite = $this->organisationRepository->createSite($data);
 
 
-
-
-
     return $createdSite;
 }
-
-
-
-
 
 
 
@@ -56,8 +49,14 @@ class OrganisationService {
  {
     if (! $this->userPermission->can($user, 'manage_departments'))
      {
-        abort(403, 'Forbidden');
+        throw new AppException
+             (
+                'FORBIDDEN',
+                'NOT ALLOWED TO DO THAT',
+                 403
+             );
      }
+
 
     $validatedData['site_id'] = $siteId;
 
@@ -68,21 +67,11 @@ class OrganisationService {
 
 
 
-public function listDepartments($user,  string $siteId)
-{
-    if (! $this->userPermission->can($user, 'manage_departments')) {
-         abort(403, 'Forbidden');
-    }
-
+public function getDepartmentsbySite(  $siteId)
+ {
 
     return $this->organisationRepository->findDepartmentbySite($siteId);
-}
-
-
-
-
-
-
+ }
 
 
 

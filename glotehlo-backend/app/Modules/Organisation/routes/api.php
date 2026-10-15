@@ -12,19 +12,19 @@ Route::middleware('auth:sanctum')
 
 
 
-Route::middleware('auth:sanctum')->post('/sites', [OrganisationController::class, 'createSites']);
-
-
-
-
 Route::middleware('auth:sanctum')
-    ->get('/sites/{siteId}/departments', [OrganisationController::class, 'getDepartmentsbySite']);
+   ->post('/sites', [OrganisationController::class, 'createSites']);
+
+
+
+
+Route::get('/departments', [OrganisationController::class, 'getDepartmentsbySite']);
 
 
 
 
 
-    
+
 
 
 

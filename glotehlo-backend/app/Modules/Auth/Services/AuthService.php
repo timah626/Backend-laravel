@@ -2,7 +2,7 @@
 
 namespace App\Modules\Auth\Services;
 
-use App\Modules\Users\Repository\UserRepository;
+use App\Modules\Users\Repository\Admin\AdminRepository;
 
 use Illuminate\Support\Facades\Hash;
 
@@ -18,14 +18,14 @@ use Illuminate\Support\Facades\RateLimiter;
 
 class AuthService {
   public function __construct (
-    private UserRepository $userRepository
+    private AdminRepository $adminRepository
   ) {
 
   }
 
 
  public function login (array $data) {
-    $user = $this -> userRepository-> findByEmail ($data ['email']);
+    $user = $this -> adminRepository-> findByEmail ($data ['email']);
 
     if ( !$user) {
         throw new AppException(
