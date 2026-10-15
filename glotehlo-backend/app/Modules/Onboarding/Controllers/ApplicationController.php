@@ -17,7 +17,7 @@ class ApplicationController extends Controller {
   public function __construct (
 
     private ApplicationService $applicationService,
-    
+
   )  {}
 
 
@@ -35,6 +35,7 @@ class ApplicationController extends Controller {
             'suggested_start_date'       => 'required|date',
             'suggested_end_date'         => 'required|date|after:suggested_start_date',
             'cv'                         => 'required|url',
+            'gender'                     => 'required|string|in:male,female',
             'suggested_department_id'    => 'required|exists:departments,id',
             'handwritten_application'    => 'nullable|url',
             'recommendation_letter'      => 'nullable|url',
