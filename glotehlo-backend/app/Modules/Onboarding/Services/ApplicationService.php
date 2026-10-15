@@ -27,7 +27,7 @@ class ApplicationService {
 
    public function application ( array $data) {
 
-    
+
 
 
     $email = strtolower($data['email']);
@@ -78,6 +78,7 @@ class ApplicationService {
                 'level'                        => $data['level'],
                 'major'                        => $data['major'],
                 'cv'                           => $data['cv'],
+                'gender'                       => $data['gender'],
                 'suggested_department_id'      => $data['suggested_department_id'],
                 'suggested_start_date'         => $data['suggested_start_date'],
                 'suggested_end_date'           => $data['suggested_end_date'],
