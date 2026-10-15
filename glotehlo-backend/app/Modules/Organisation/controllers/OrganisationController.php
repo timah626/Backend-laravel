@@ -12,73 +12,92 @@ use Illuminate\Http\Request;
 
 class OrganisationController extends Controller {
 
- public function __construct (
-    private OrganisationService $organisationService,
- ) {}
+     public function __construct
+     (
+        private OrganisationService $organisationService,
+     ) {}
 
 
 
 
 
- public function createSites ( Request $request   ) {
+    public function createSites ( Request $request   )
+     {
 
-  $site = $this->organisationService->createSites(
+        $site = $this->organisationService->createSites(
 
+            $request-> all(),
+            $request->user(),
 
+        );
 
-
-        $request-> all(),
-        $request->user(),
-
-    );
-
-    return (response () -> json ([
-        'message' => 'sites created successfully',
-        'data' => $site,
-    ], 201));
+        return (response () -> json ([
+            'message' => 'sites created successfully',
+            'data' => $site,
+        ], 201));
 
 
- }
+     }
 
- public function createDepartments ( Request $request,   string $siteId  ) {
-
-
-
-  $validatedData = $request -> validate([
-
-      'name' => 'required',
-
-    ]);
+    public function createDepartments ( Request $request,   string $siteId  )
+     {
 
 
 
+        $validatedData = $request -> validate([
 
-  $department = $this->organisationService->createDepartment(
-    $request->user(),
-    $validatedData,
-    $siteId
-);
+        'name' => 'required',
 
-    return (response () -> json ([
-        'message' => 'department created successfully',
-        'data' => $department
-    ], 201));
-
-
- }
+        ]);
 
 
 
 
-public function getDepartmentsbySite(Request $request, string $siteId)
-{
-    $departments = $this->organisationService->listDepartments(
-        $request->user(),
-        $siteId,
-    );
+        $department = $this->organisationService->createDepartment(
+            $request->user(),
+            $validatedData,
+            $siteId
+        );
 
-    return response()->json(['data' => $departments], 201);
-}
+        return (response () -> json ([
+            'message' => 'department created successfully',
+            'data' => $department
+        ], 201));
+
+
+     }
+
+
+
+
+    public function getDepartmentsbySite(Request $request)
+
+     {
+
+        $validated = $request->validate([
+          'site_id' => 'required|exists:sites,id',
+        ]);
+
+
+        $departments = $this->organisationService->getDepartmentsbySite(
+            $validated['site_id']
+        );
+
+        return response()->json(['data' => $departments], 200);
+
+     }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

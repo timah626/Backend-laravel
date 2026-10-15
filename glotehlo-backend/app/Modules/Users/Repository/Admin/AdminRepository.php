@@ -10,13 +10,11 @@ use Illuminate\Database\Eloquent\Collection;
 class AdminRepository {
 
 
-
     public function findByEmail (string $email)  :?User
     { //chelsie na wow o. gotta return a user object
 
         return User :: where('email', $email)-> first ();
     }
-
 
 
     public function createUser ( array $data) :?User
@@ -37,6 +35,11 @@ class AdminRepository {
     }
 
 
+
+
+
+
+    //test function ooo
     public function DeleteUserByEmail (string $email)
     {
         return User::where('email', strtolower($email))->delete();
