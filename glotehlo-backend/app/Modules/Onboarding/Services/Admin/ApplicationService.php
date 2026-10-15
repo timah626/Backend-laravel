@@ -113,6 +113,8 @@ class  ApplicationService {
 
                 'major'         => $validatedData['major']               ?? $existingApplication->major,
 
+                'gender'        =>$validatedData ['gender']              ?? $existingApplication ->gender,
+
                 'department_id' => $validatedData['department_id']       ?? $existingApplication->suggested_department_id,
 
                 'start_date'    => $validatedData['start_date']          ?? $existingApplication->suggested_start_date,

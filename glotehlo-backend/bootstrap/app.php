@@ -26,7 +26,9 @@ return Application::configure(basePath: dirname(__DIR__))
     //veri goude
 
 
-
+    ->withMiddleware(function (Middleware $middleware) {
+            $middleware->redirectGuestsTo(fn () => null);
+    })
 
 
 
@@ -98,6 +100,13 @@ return Application::configure(basePath: dirname(__DIR__))
            ],
        ], $e->httpStatus);
      });
+
+
+
+
+
+
+
 
 
 

@@ -23,6 +23,8 @@ return new class extends Migration
           $table->foreignUlid('suggested_department_id')
            ->constrained('departments');
 
+       
+
           $table->date('suggested_start_date');
 
           $table->date('suggested_end_date');
@@ -31,7 +33,7 @@ return new class extends Migration
 
           $table->string('handwritten_application')->nullable();
 
-          
+
           $table->string('recommendation_letter')->nullable();
 
 
@@ -57,13 +59,6 @@ return new class extends Migration
 
 
 
-        
-
-
-
-
-          
-          
 
 
 
@@ -85,7 +80,14 @@ return new class extends Migration
 
 
 
-           
+
+
+
+
+
+
+
+
 
 
         });
@@ -97,5 +99,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('applications');
+
+
     }
 };
