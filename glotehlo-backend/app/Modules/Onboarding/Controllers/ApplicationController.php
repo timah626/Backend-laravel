@@ -37,6 +37,7 @@ class ApplicationController extends Controller {
             'cv'                         => 'required|url',
             'gender'                     => 'required|string|in:male,female',
             'suggested_department_id'    => 'required|exists:departments,id',
+            'sugested_department_name'   => 'required|exists:departments,name',  //added
             'handwritten_application'    => 'nullable|url',
             'recommendation_letter'      => 'nullable|url',
             'attestation_of_attendance'  => 'nullable|url',
