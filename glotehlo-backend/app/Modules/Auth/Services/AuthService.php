@@ -11,16 +11,18 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Exceptions\AppException;
 
+use Illuminate\Support\Facades\RateLimiter;
+
 
 
 
 class AuthService {
   public function __construct (
-    private UserRepository $userRepository 
+    private UserRepository $userRepository
   ) {
 
   }
-    
+
 
  public function login (array $data) {
     $user = $this -> userRepository-> findByEmail ($data ['email']);
@@ -28,7 +30,7 @@ class AuthService {
     if ( !$user) {
         throw new AppException(
           'INVALID_CREDENTIALS',
-          'invalid email or password',
+          'invalid email or  password',
            401
 );
     }
@@ -44,9 +46,9 @@ class AuthService {
 
      Auth::login($user);
 
-      
 
-     
+
+
       return ['user' => $user];
 
 
@@ -55,7 +57,7 @@ class AuthService {
 
 
 
-    
+
 
     public function logout ( $request ) {
 
