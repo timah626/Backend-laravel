@@ -68,6 +68,10 @@ class AuthService {
       $request -> session() -> regenerateToken();
 
 
+       
+
+
+        response()->noContent();
 
     }
 
