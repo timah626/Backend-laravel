@@ -51,6 +51,8 @@ class ApplicationController extends Controller {
 
                  'school'        => 'nullable|string',
 
+                 'gender' => 'required|string|in:male,female',
+
                  'level'         => 'nullable|string',
 
                  'major'         => 'nullable|string',
@@ -148,6 +150,14 @@ class ApplicationController extends Controller {
             [  'message' => 'okay, returned',
                'data' => $applications
             ];
+    }
+
+
+
+
+    public function searchUser ( Request $request )
+    {
+
     }
 
 
