@@ -11,4 +11,6 @@ class Site extends Model
 
     protected $table = 'sites';
     protected $guarded = [];
+
+    
 }

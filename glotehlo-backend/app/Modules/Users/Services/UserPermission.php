@@ -16,7 +16,7 @@ public function can(User $user, string $action, $resource = null): bool
 
     $role = $user->role;
 
-    $permissions = UserRoles::PERMISSIONS[$role] ?? [];
+    $permissions = UserRoles::PERMISSIONS[$role] ?? [];    
 
     if (!in_array($action, $permissions)) {
         return false;

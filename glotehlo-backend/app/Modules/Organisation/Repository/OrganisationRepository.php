@@ -37,11 +37,11 @@ class OrganisationRepository {
 
 
 
-public function findDepartmentbySite(string $siteId): Collection
-{
-    return Department::where('site_id', $siteId)
+    public function findDepartmentbySite(string $siteId): Collection
+    {
+     return Department::where('site_id', $siteId)
             ->get();
-}
+    }
 
 
 

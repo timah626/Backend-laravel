@@ -43,7 +43,7 @@ public function clock($ip, array $data)
 {
     $flags = [];
 
-    //
+
     $existingEvent = $this->attendanceEventRepository
         ->findByIdempotencyKey($data['idempotencyKey']);
 
@@ -90,7 +90,7 @@ public function clock($ip, array $data)
           'NOT_FOUND',
           'Not found dear',
            404
-);
+      );
 
 
      }
@@ -149,7 +149,7 @@ public function clock($ip, array $data)
 
 
 
-        if ($data['kind'] === 'out' && $day) {
+        if ($data['kind']==='out' && $day) {
             $day = $this->attendanceDayRepository->setLastOut($day, $event->server_time);
             return ['day' => $day, 'already_recorded' => true];
         }

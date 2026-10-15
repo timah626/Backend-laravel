@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Foundation\Application;
+
 use Illuminate\Foundation\Configuration\Exceptions;
+
 use Illuminate\Foundation\Configuration\Middleware;
 
 use Illuminate\Validation\ValidationException;
@@ -26,7 +28,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
 
 
-    
+
 
 
 
@@ -39,7 +41,7 @@ return Application::configure(basePath: dirname(__DIR__))
     except: [
         'api/login',
         'api/logout',
-        'api/departments/{departmentId}/interns',
+        'api/departments/*/interns',
         'api/sites',
         'api/departments',
         'api/sites/*/departments',
@@ -47,6 +49,14 @@ return Application::configure(basePath: dirname(__DIR__))
         'api/sites/*/allnetworks',
         'api/clock-in',
         'api/clock-out',
+        'api/applications',
+        'api/applications/*/approve',
+        'api/delete',
+        'api/applications/*/',
+        'api/users/*',
+        'api/applications/departments/*',
+        'api/applications/*/reject'
+
 
     ]
 
@@ -90,14 +100,17 @@ return Application::configure(basePath: dirname(__DIR__))
      });
 
 
-        $exceptions->render(function (\Throwable $e) {
+
+
+
+    /*    $exceptions->render(function (\Throwable $e) {
     return response()->json([
         'error' => [
             'code' => 'SERVER_ERROR',
             'message' => 'Something went wrong',
         ],
     ], 500);
-   });
+   }); */
 
 
 

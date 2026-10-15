@@ -35,6 +35,7 @@ class UserRoles
             'create_user',
             'reset_password',
             'manage_settings',
+            'review_applications'
         ],
     ];
 }
