@@ -25,47 +25,40 @@ return Application::configure(basePath: dirname(__DIR__))
 
     //veri goude
 
-
-    ->withMiddleware(function (Middleware $middleware) {
-            $middleware->redirectGuestsTo(fn () => null);
-    })
-
-
-
-    ->withMiddleware(function (Middleware $middleware): void {
-         $middleware->statefulApi(); //an API that is capable of maintaining a user session across multiple requests using traditional web mechanics. tsiupp
-
-         $middleware->trustProxies(at: '*');
-         $middleware->validateCsrfTokens(
-    except: [
-        'api/login',
-        'api/logout',
-        'api/departments/*/interns',
-        'api/sites',
-        'api/departments',
-        'api/sites/*/departments',
-        'api/sites/*/networks',
-        'api/sites/*/allnetworks',
-        'api/clock-in',
-        'api/clock-out',
-        'api/applications',
-        'api/applications/*/approve',
-        'api/delete',
-        'api/applications/*/',
-        'api/users/*',
-        'api/applications/departments/*',
-        'api/applications/*/reject',
-        'api/users', //search user
-        'api/users/*/reset-password',//reset password
-        'api/interns',
-        'api/interns/*'
-
-    ]
+   ->withMiddleware(function (Middleware $middleware): void {
+    $middleware->redirectGuestsTo(fn () => null);
+    $middleware->statefulApi();
+    $middleware->trustProxies(at: '*');
+    $middleware->validateCsrfTokens(
+        except: [
+            'api/login',
+            'api/logout',
+            'api/departments/*/interns',
+            'api/sites',
+            'api/departments',
+            'api/sites/*/departments',
+            'api/sites/*/networks',
+            'api/sites/*/allnetworks',
+            'api/clock-in',
+            'api/clock-out',
+            'api/applications',
+            'api/applications/*/approve',
+            'api/delete',
+            'api/applications/*/',
+            'api/users/*',
+            'api/applications/departments/*',
+            'api/applications/*/reject',
+            'api/users',
+            'api/users/*/reset-password',
+            'api/interns',
+            'api/interns/*',
+        ]
+    );
+})
 
 
-);
 
-    })
+
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(
             fn (Request $request) => $request->is('api/*') || $request->expectsJson(),
