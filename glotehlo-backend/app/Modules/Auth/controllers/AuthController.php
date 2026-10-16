@@ -75,7 +75,7 @@ class AuthController extends Controller {
      {
 
         $validatedData = $request -> validate ([
-            'new_password' => 'required|min:8',
+            'new_password'     => 'required|min:8',
             'confirm_password' => 'required|min:8',
             'current_password' => 'required|min:8'
 
@@ -87,7 +87,10 @@ class AuthController extends Controller {
 
 
         $changedPassword = $this -> authService -> changePassword ($user , $validatedData);
+
+
          return response () -> json ([
+            
             'message' => 'PASSWORD_CHANGED SUCESSFULLY',
 
             ], 204);

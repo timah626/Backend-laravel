@@ -20,27 +20,6 @@ class UserController extends Controller {
 
 
 
-    public function changePassword (Request $request)
-
-    {
-
-        $validatedData =$request -> validate([
-          'newPassword' => 'required|min:8',
-        ]);
-
-
-        $password = $validatedData ['newPassword'];
-
-
-
-        //$newPassword = $this ->
-
-
-
-
-
-    }
-
 
 
 

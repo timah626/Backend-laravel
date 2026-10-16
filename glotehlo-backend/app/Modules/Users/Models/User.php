@@ -11,6 +11,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 use App\Modules\Organisation\Models\Department;
 
+use App\Modules\Onboarding\Models\Application;
 
 use App\Modules\Organisation\Models\Site;
 
@@ -38,6 +39,9 @@ class User extends Authenticatable
 
 
 
+
+
+
      public function suggestedDepartment()
 
         {
@@ -53,12 +57,23 @@ class User extends Authenticatable
          return $this->belongsTo(Site::class, 'site_id');
     }
 
+
+
+    public function application()
+{
+    return $this->hasOne(Application::class, 'user_id');
+}
     /**
      * Get the attributes that should be cast.
      *
      * @return array<string, string>
      */
      protected function casts(): array
+
+
+
+
+
 {
     return [
         'password' => 'hashed',
