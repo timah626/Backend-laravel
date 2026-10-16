@@ -25,6 +25,7 @@ class UserRoles
         ],
 
         'admin' => [
+            'view_users',
             'view_all_history',
             'export_csv',
             'manage_sites',

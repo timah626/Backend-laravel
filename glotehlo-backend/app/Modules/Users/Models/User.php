@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+use App\Modules\Organisation\Models\Department;
+
 
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 
@@ -29,7 +31,14 @@ class User extends Authenticatable
     'name', 'email', 'password', 'school', 'level', 'major',
     'site_id', 'department_id', 'start_date', 'end_date', 'photo_path',
 ];
-      
+
+
+
+     public function suggestedDepartment()
+
+        {
+            return $this->belongsTo(Department::class, 'department_id');
+        }
 
     /**
      * Get the attributes that should be cast.

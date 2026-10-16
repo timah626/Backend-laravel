@@ -20,9 +20,12 @@ class Application extends Model
 
 
     public function suggestedDepartment()
-{
-    return $this->belongsTo(Department::class, 'suggested_department_id');
-}
+
+        {
+
+            return $this->belongsTo(Department::class, 'suggested_department_id');
+            
+        }
 
 
 

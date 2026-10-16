@@ -118,10 +118,7 @@ class  ApplicationService {
                 'department_id' => $validatedData['department_id']       ?? $existingApplication->suggested_department_id,
 
 
-                
-
-
-
+            
                 'start_date'    => $validatedData['start_date']          ?? $existingApplication->suggested_start_date,
 
                 'end_date'      => $validatedData['end_date']            ?? $existingApplication->suggested_end_date,

@@ -53,7 +53,7 @@ class ApplicationRepository
 		return Application::where('status', $status)
                           ->with('suggestedDepartment:id,name')
 			              ->orderByDesc('submitted_at')
-			              ->select('id', 'first_name', 'last_name', 'email', 'school', 'submitted_at', 'rejected_at', 'status')
+			              ->select('id', 'first_name', 'last_name', 'email', 'school', 'submitted_at', 'rejected_at', 'status', 'suggested_department_id')
 			              ->paginate($perPage);
 	}
 
@@ -115,6 +115,10 @@ class ApplicationRepository
         return Application::where ('suggested_department_id', $departmentId)
                           ->paginate($perPage);
     }
+
+
+
+
 
 
 
