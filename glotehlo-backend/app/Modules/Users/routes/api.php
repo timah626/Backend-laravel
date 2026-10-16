@@ -34,7 +34,7 @@ Route::middleware('auth:sanctum')
 
 
 Route::middleware('auth:sanctum')
- ->post('/interns/{id}', [AdminUserController::class, 'getInternById']) ;
+ ->get('/interns/{id}', [AdminUserController::class, 'getInternById']) ;
 
 
 
