@@ -16,7 +16,8 @@ class DatabaseSeeder extends Seeder
 
     public function run(): void
     {
-        Model::unguard();   //this one is quite unclear
+        Model::unguard();   /// let me try something eh
+ 
 
         $site = Site::firstOrCreate(
             ['name' => 'Glotehlo HQ'],
@@ -52,6 +53,11 @@ class DatabaseSeeder extends Seeder
                 'department_id' => $engineering->id,
             ]
         );
+
+
+
+
+
 
         foreach (range(1, 20) as $n) {
             User::firstOrCreate(
