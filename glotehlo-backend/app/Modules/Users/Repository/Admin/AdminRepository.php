@@ -115,7 +115,7 @@ class AdminRepository {
     public function getInternById(string $userId)
     {
 
-          return User::where('user_id', $userId)
+          return User::where('id', $userId)
             ->whereIn('role', ['intern', 'intern_head'])
             ->where('active', true)
             ->orderBy('name')
