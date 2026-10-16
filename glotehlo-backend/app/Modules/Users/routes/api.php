@@ -14,6 +14,26 @@ Route::middleware('auth:sanctum')
 
 
 
+Route::middleware('auth:sanctum')
+ ->get('/users', [AdminUserController::class, 'searchUsers']) ;
+
+
+
+
+Route::middleware('auth:sanctum')
+ ->post('/users/{id}/reset-password', [AdminUserController::class, 'resetPassword']) ;
+
+
+
+
+
+
+
+
+
+
+
+
 //testRoute
 Route::delete('/users/{email}', [AdminUserController::class, 'deleteUser']);
 

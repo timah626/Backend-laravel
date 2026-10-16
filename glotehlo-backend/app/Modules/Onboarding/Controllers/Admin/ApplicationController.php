@@ -136,7 +136,7 @@ class ApplicationController extends Controller {
             ], 200);
 
 
-      }
+        }
 
 
     public function getApplicationsByDepartment ( Request $request  ,  string $departmentId)
@@ -154,31 +154,6 @@ class ApplicationController extends Controller {
 
 
 
-
-   /* public function searchUsers  (Request $request ) {
-
-        $user = $request -> user();
-        $term = $request->query('search');
-        $page = $request->query('page', 1);      //one is kinda like the default page number .. you know how anoyying  users are, gota be rechecking and putting default values everywhere
-
-
-        $validatedData = $request->validate([
-
-
-        ])
-
-        $searchResult = $this -> applicationService -> searchUser ($user, $term, $page);
-
-          return response()->json(
-            [  'message' => 'okay, returned',
-               'data' => $searchResult
-            ], 200);
-
-
-
-
-    }
-   */
 
 
 

@@ -11,6 +11,11 @@ use Illuminate\Support\Str;
 
 use App\Exceptions\AppException;
 
+use  App\Modules\Onboarding\Services\PageResponse;
+
+use Illuminate\Support\Facades\DB;
+
+
 
 use App\Modules\Users\Repository\Admin\AdminRepository;
 
@@ -50,7 +55,12 @@ class AdminUserService {
 
         if (!$department)
         {
-            throw new \Exception('Department not found');
+           throw new AppException
+             (
+                'NOT_FOUND',
+                'not found buddy',
+                 404
+             );
         }
 
 
@@ -68,6 +78,9 @@ class AdminUserService {
 
 
         return $this->adminRepository->findInternsByDepartment($departmentId);
+
+
+
 
    }
 
@@ -149,6 +162,89 @@ class AdminUserService {
 
 
    }
+
+
+
+
+   public function searchUser ($user, string $search)
+   {
+
+       if (! $this->userPermission->can($user, 'view_users'))
+         {
+             throw new AppException
+             (
+                'FORBIDDEN',
+                'You are not allowed',
+                 403
+             );
+
+         }
+
+
+        $result = $this -> adminRepository -> getSearchedUser($search);
+
+        return PageResponse::from($result);
+
+
+
+   }
+
+
+   public function resetPassword ($user, string $userId)
+   {
+
+       $existingUser = $this -> adminRepository ->findById ($userId);
+
+
+       if (!$existingUser)
+       {
+
+         throw new AppException
+             (
+                'NOT_FOUND',
+                'not found buddy',
+                 403
+             );
+
+       }
+
+
+
+       if (! $this->userPermission->can($user, 'reset_password'))
+         {
+             throw new AppException
+             (
+                'FORBIDDEN',
+                'You are not allowed',
+                 403
+             );
+
+         }
+
+
+        $firstname = $this -> adminRepository  -> getUsersFirstName($userId) ;
+
+        $password = $this -> generateTempPassword($firstname);
+
+
+
+        DB::transaction(function () use ($user, $password)
+
+        {
+            $this->adminRepository->setTempPassword($user, $password);
+
+            $this->adminRepository->deleteSessions($user->id);
+        });
+
+        return ['temporary_password' => $password];
+
+
+
+   }
+
+
+
+
 
 
    //test function
