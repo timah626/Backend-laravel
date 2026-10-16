@@ -24,23 +24,28 @@ class AuthService {
   }
 
 
- public function login (array $data) {
+ public function login (array $data)
+ {
     $user = $this -> adminRepository-> findByEmail ($data ['email']);
 
-    if ( !$user) {
-        throw new AppException(
+    if ( !$user)
+    {
+        throw new AppException
+        (
           'INVALID_CREDENTIALS',
           'invalid email or  password',
            401
-);
+        );
     }
 
-    if  (!Hash::check($data['password'], $user->password)) {
-         throw new AppException(
+    if  (!Hash::check($data['password'], $user->password))
+    {
+         throw new AppException
+         (
           'INVALID_CREDENTIALS',
           'invalid email or password',
            401
-);
+         );
     }
 
 
@@ -80,17 +85,56 @@ class AuthService {
 
 
 
-  /* public function changePassword ( $user, array $validatedData)
+    public function changePassword($user, array $validatedData)
      {
+
+
+        $userId = $user -> id;
+
+        $existingUser = $this -> adminRepository -> findById($userId);
+
+        if (! Hash::check($validatedData['current_password'], $existingUser->password))
+             {
+                throw new AppException(
+                    'INVALID_CURRENT_PASSWORD',
+                    'Current password is wrong',
+                    422);
+             }
+
+
+
+        if ( Hash::check($validatedData['new_password'], $existingUser->password))
+             {
+                throw new AppException(
+                    'sAME_AS_OLD_PASSWORD',
+                    'Current password is wrong',
+                    404);
+             }
+
+
+        if (!($validatedData['new_password'] === $validatedData['confirm_password']))
+        {
+
+             throw new AppException
+             (
+                'PASSWORDS_DO_NOT_MATCH',
+                'new_password doesnt equal confirm_password',
+                 404
+            );
+
+
+        }
 
         if ($validatedData['new_password'] === $validatedData['confirm_password'])
 
         {
-            $newPassword = $this -> adminRepository -> setnewPassword($user);
+            $newPassword = $this -> adminRepository -> setnewPassword($user, $validatedData['new_password']);
+
+            return $newPassword;
         }
 
 
-    } */
+    }
 
 
 }
