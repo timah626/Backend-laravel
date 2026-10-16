@@ -33,6 +33,9 @@ Route::middleware('auth:sanctum')
  ->post('/users/{id}/reset-password', [AdminUserController::class, 'resetPassword']) ;
 
 
+Route::middleware('auth:sanctum')
+ ->post('/interns/{id}', [AdminUserController::class, 'getInternById']) ;
+
 
 
 

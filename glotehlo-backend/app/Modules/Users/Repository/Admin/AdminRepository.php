@@ -112,6 +112,17 @@ class AdminRepository {
 
 
 
+    public function getInternById(string $userId)
+    {
+
+          return User::where('user_id', $userId)
+            ->whereIn('role', ['intern', 'intern_head'])
+            ->where('active', true)
+            ->orderBy('name')
+            ->get();
+    }
+
+
 
     public function findInterns(array $filters): LengthAwarePaginator
 

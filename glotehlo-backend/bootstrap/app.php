@@ -57,7 +57,8 @@ return Application::configure(basePath: dirname(__DIR__))
         'api/applications/*/reject',
         'api/users', //search user
         'api/users/*/reset-password',//reset password
-        'api/interns'
+        'api/interns',
+        'api/interns/*'
 
     ]
 
