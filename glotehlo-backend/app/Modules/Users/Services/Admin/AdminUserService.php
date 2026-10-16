@@ -83,6 +83,32 @@ class AdminUserService {
 
 
 
+
+   public function getInternById($user,  string $userId )
+
+   {
+
+
+        if (! $this->userPermission->can($user, 'list_interns'))
+         {
+             throw new AppException
+             (
+                'FORBIDDEN',
+                'You are not allowed',
+                 403
+             );
+
+         }
+
+
+        $interns = $this->adminRepository->getInternById($userId);
+
+        return $interns;
+
+   }
+
+
+
    public function generateTempPassword ($firstname)
 
    {
@@ -265,7 +291,7 @@ class AdminUserService {
         $filters['page'] = $filters['page'] ?? 1;
 
         $result = $this->adminRepository->findInterns($filters);
-        
+
         return PageResponse::from($result);
 
     }

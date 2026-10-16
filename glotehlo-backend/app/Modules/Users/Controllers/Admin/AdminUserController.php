@@ -123,12 +123,20 @@ class AdminUserController extends Controller {
 
 
 
-    public function getInternById( Request $request)
+    public function getInternById( Request $request, string $internId)
      {
 
         $user = $request -> user ();
 
-       
+        $interns = $this -> adminUserService -> getInternById($user, $internId);
+
+
+         return response()->json(
+            [  'message' => 'take your stupid interns',
+               'data' => $interns,
+            ], 201);
+
+
 
      }
 
