@@ -30,15 +30,6 @@ class AdminRepository {
     }
 
 
-    public function getUsersFirstName (string $userId) :? User
-
-    {
-
-        return User :: where ('id', $userId)
-                       ->select ('first_name')
-                       ->get();
-
-    }
 
 
 
@@ -52,15 +43,28 @@ class AdminRepository {
             return $user;
         }
 
+
+
+
+
+    public function setNewPassword($user, string $plain)
+        {
+            $user->password = $plain;
+            $user->temp_password_active = false;
+            $user->save();
+
+            return $user;
+        }
+
+
+
+
     public function deleteSessions(string $userId)
         {
 
             DB::table('sessions')->where('user_id', $userId)->delete();
 
         }
-
-
-
 
 
     public function createUser ( array $data) :?User
@@ -80,6 +84,18 @@ class AdminRepository {
             ->get();
     }
 
+   // this is a cute and useless function of mine.
+     public function getAllInterns(): Collection
+
+     {
+         return User::where('role', 'intern', 'intern_head')
+            ->where('active', true)
+            ->orderBy('name')
+            ->get();
+     }
+
+
+
 
 
     public function getSearchedUser (string $search, int $perPage = 10) : LengthAwarePaginator
@@ -91,6 +107,53 @@ class AdminRepository {
                       ->orWhere('email', 'ilike', "%{$search}%")
                       ->paginate($perPage);
     }
+
+
+
+
+
+
+    public function findInterns(array $filters): LengthAwarePaginator
+
+
+   {
+        return User::whereIn('role', ['intern', 'intern_head'])
+          ->with([
+            'suggestedDepartment:id,name',
+            'site:id,name',
+            ])
+
+          ->when($filters['site_id'] ?? null, function ($query, $siteId) {
+            $query->where('site_id', $siteId);
+            })
+
+          ->when($filters['department_id'] ?? null, function ($query, $departmentId) {
+            $query->where('department_id', $departmentId);
+
+           })
+
+         ->when($filters['search'] ?? null, function ($query, $search) {
+            $query->where(function ($query) use ($search) {
+                $query->where('name', 'ilike', "%{$search}%")
+                      ->orWhere('email', 'ilike', "%{$search}%");
+            });
+
+           })
+
+
+        ->select('id', 'name', 'email', 'role', 'department_id', 'site_id', 'active')
+        ->orderBy('name')
+        ->paginate(
+            $filters['per_page'] ?? 10,
+            ['*'],
+            'page',
+            $filters['page'] ?? 1
+        );
+}
+
+
+
+
 
 
 

@@ -61,19 +61,36 @@ class AuthService {
 
     public function logout ( $request ) {
 
-      Auth :: logout();
+
+      Auth::guard('web')->logout();
 
       $request -> session() -> invalidate ();
 
       $request -> session() -> regenerateToken();
 
 
-       
+
 
 
         response()->noContent();
 
     }
+
+
+
+
+
+  /* public function changePassword ( $user, array $validatedData)
+     {
+
+        if ($validatedData['new_password'] === $validatedData['confirm_password'])
+
+        {
+            $newPassword = $this -> adminRepository -> setnewPassword($user);
+        }
+
+
+    } */
 
 
 }

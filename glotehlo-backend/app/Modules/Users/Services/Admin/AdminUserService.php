@@ -79,9 +79,6 @@ class AdminUserService {
 
         return $this->adminRepository->findInternsByDepartment($departmentId);
 
-
-
-
    }
 
 
@@ -190,6 +187,10 @@ class AdminUserService {
    }
 
 
+
+
+
+  //move this to auth timah abeg dont forget biko
    public function resetPassword ($user, string $userId)
    {
 
@@ -242,6 +243,32 @@ class AdminUserService {
 
    }
 
+
+
+
+    public function listInterns($user, array $filters)
+     {
+
+        if (! $this->userPermission->can($user, 'list_interns'))
+         {
+             throw new AppException
+             (
+                'FORBIDDEN',
+                'You are not allowed',
+                 403
+             );
+
+         }
+
+
+        $filters['per_page'] = $filters['per_page'] ?? 10;
+        $filters['page'] = $filters['page'] ?? 1;
+
+        $result = $this->adminRepository->findInterns($filters);
+        
+        return PageResponse::from($result);
+
+    }
 
 
 

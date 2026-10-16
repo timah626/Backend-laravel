@@ -56,8 +56,8 @@ return Application::configure(basePath: dirname(__DIR__))
         'api/applications/departments/*',
         'api/applications/*/reject',
         'api/users', //search user
-        'api/users/*/reset-password'//reset password
-
+        'api/users/*/reset-password',//reset password
+        'api/interns'
 
     ]
 
@@ -102,23 +102,14 @@ return Application::configure(basePath: dirname(__DIR__))
 
 
 
-
-
-
-
-
-
-
-
-
-    /*    $exceptions->render(function (\Throwable $e) {
+      $exceptions->render(function (\Throwable $e) {
     return response()->json([
         'error' => [
             'code' => 'SERVER_ERROR',
             'message' => 'Something went wrong',
         ],
     ], 500);
-   }); */
+   });
 
 
 
