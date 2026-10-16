@@ -51,8 +51,9 @@ class ApplicationRepository
 	public function getByStatus(string $status, int $perPage = 10): LengthAwarePaginator
 	{
 		return Application::where('status', $status)
+                          ->with('suggestedDepartment:id,name')
 			              ->orderByDesc('submitted_at')
-			              ->select('id', 'first_name', 'last_name', 'email', 'school', 'submitted_at', 'rejected_at', 'status', 'suggested_department_id', 'suggested_department_name')
+			              ->select('id', 'first_name', 'last_name', 'email', 'school', 'submitted_at', 'rejected_at', 'status')
 			              ->paginate($perPage);
 	}
 

@@ -80,7 +80,6 @@ class ApplicationService {
                 'cv'                           => $data['cv'],
                 'gender'                       => $data['gender'],
                 'suggested_department_id'      => $data['suggested_department_id'],
-                'suggested_department_name'    => $data['suggested_department_name'],  //added
                 'suggested_start_date'         => $data['suggested_start_date'],
                 'suggested_end_date'           => $data['suggested_end_date'],
                 'status' => 'pending',
