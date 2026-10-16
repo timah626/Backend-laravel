@@ -32,9 +32,6 @@ return Application::configure(basePath: dirname(__DIR__))
 
 
 
-
-
-
     ->withMiddleware(function (Middleware $middleware): void {
          $middleware->statefulApi(); //an API that is capable of maintaining a user session across multiple requests using traditional web mechanics. tsiupp
 

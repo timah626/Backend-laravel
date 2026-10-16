@@ -65,7 +65,12 @@ class AuthController extends Controller {
     }
 
 
+    public function changePassword (Request $request )
+     {
 
+
+     
+     }
 
 
 
