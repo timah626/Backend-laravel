@@ -55,7 +55,7 @@ class AuthController extends Controller {
     public function logout (Request $request)
 
     {
-        
+
 
         $this->authService->logout($request);
 
@@ -71,14 +71,16 @@ class AuthController extends Controller {
 
 
 
-    /*public function changePassword (Request $request )
+    public function changePassword (Request $request)
      {
 
         $validatedData = $request -> validate ([
-            'new_password' => 'required|min8',
-            'confirm_password' => 'required|min8'
+            'new_password' => 'required|min:8',
+            'confirm_password' => 'required|min:8',
+            'current_password' => 'required|min:8'
 
         ]);
+
 
         $user = $request -> user();
 
@@ -86,13 +88,13 @@ class AuthController extends Controller {
 
         $changedPassword = $this -> authService -> changePassword ($user , $validatedData);
          return response () -> json ([
-            'message' => 'user logged out ',
-            'data' =>  $changedPassword
-            ], 200);
+            'message' => 'PASSWORD_CHANGED SUCESSFULLY',
+
+            ], 204);
 
 
 
-     } */
+     }
 
 
 

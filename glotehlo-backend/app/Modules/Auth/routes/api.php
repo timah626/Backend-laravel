@@ -18,7 +18,7 @@ Route::middleware('web')->post('/login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
 
 
-Route::middleware('auth:sanctum')->post('/change-password', [AuthController::class, 'changePassword']);
+Route::middleware('auth:sanctum')->post('/auth/password', [AuthController::class, 'changePassword']);
 
 
 

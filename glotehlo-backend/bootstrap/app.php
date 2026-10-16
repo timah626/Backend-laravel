@@ -52,6 +52,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'api/users/*/reset-password',
             'api/interns',
             'api/interns/*',
+            'api/auth/password'
         ]
     );
 })
@@ -96,14 +97,14 @@ return Application::configure(basePath: dirname(__DIR__))
 
 
 
-      $exceptions->render(function (\Throwable $e) {
+     /* $exceptions->render(function (\Throwable $e) {
     return response()->json([
         'error' => [
             'code' => 'SERVER_ERROR',
             'message' => 'Something went wrong',
         ],
     ], 500);
-   });
+   }); */
 
 
 
