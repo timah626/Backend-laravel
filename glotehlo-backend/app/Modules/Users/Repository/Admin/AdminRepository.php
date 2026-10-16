@@ -152,7 +152,7 @@ class AdminRepository {
            })
 
 
-        ->select('id', 'name', 'email', 'role', 'department_id', 'site_id', 'active')
+        ->select('id', 'name', 'email', 'role', 'department_id', 'site_id', 'active' ,'start_date', 'end_date', 'school', 'major' )
         ->orderBy('name')
         ->paginate(
             $filters['per_page'] ?? 10,
