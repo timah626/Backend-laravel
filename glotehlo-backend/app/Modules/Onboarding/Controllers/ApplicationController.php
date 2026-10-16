@@ -36,8 +36,7 @@ class ApplicationController extends Controller {
             'suggested_end_date'         => 'required|date|after:suggested_start_date',
             'cv'                         => 'required|url',
             'gender'                     => 'required|string|in:male,female',
-            'suggested_department_id'    => 'required|exists:departments,id',
-            'suggested_department_name'  => 'required|exists:departments,name',  //added
+            'suggested_department_id'    => 'required|exists:departments,id',  
             'handwritten_application'    => 'nullable|url',
             'recommendation_letter'      => 'nullable|url',
             'attestation_of_attendance'  => 'nullable|url',
