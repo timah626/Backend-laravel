@@ -91,9 +91,9 @@ class AdminUserService {
    {
         $convertFirstName = Str :: lower ($firstname);
 
-        $randomLetters = Str :: random(4);
+        //$randomLetters = Str :: random(4);
 
-        $finalPassword = $convertFirstName . $randomLetters. "glotelho";
+        $finalPassword = $convertFirstName . "@". "glotelho";
 
 
         return $finalPassword;
@@ -222,9 +222,9 @@ class AdminUserService {
          }
 
 
-        $firstname = $this -> adminRepository  -> getUsersFirstName($userId) ;
+        $randomString = Str :: random(4);
 
-        $password = $this -> generateTempPassword($firstname);
+        $password = $this -> generateTempPassword($randomString);
 
 
 
