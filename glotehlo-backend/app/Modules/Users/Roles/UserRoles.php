@@ -25,6 +25,7 @@ class UserRoles
         ],
 
         'admin' => [
+            'list_interns',
             'view_users',
             'view_all_history',
             'export_csv',

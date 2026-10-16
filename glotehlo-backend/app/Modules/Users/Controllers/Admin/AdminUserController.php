@@ -77,7 +77,7 @@ class AdminUserController extends Controller {
 
 
 
-    
+
 
 
 
@@ -101,12 +101,12 @@ class AdminUserController extends Controller {
 
 
 
-         public function listInterns(Request $request)
-    {
+    public function listInterns(Request $request)
+     {
         $filters = $request->validate([
             'site_id'                => 'nullable', 'integer', 'exists:sites,id',
             'department_id'          => 'nullable', 'integer', 'exists:departments,id',
-            'search'                 => 'nullable', 'string', 'max:100',
+            'search'                 => 'nullable', 'string', 'max:40',
             'page'                   => 'nullable', 'integer', 'min:1',
             'per_page'               => 'nullable', 'integer', 'min:1', 'max:50',
         ]);
@@ -117,7 +117,26 @@ class AdminUserController extends Controller {
         );
 
         return response()->json($page, 200);
-    }
+     }
+
+
+
+
+
+    public function getInternById( Request $request)
+     {
+
+        $user = $request -> user ();
+
+       
+
+     }
+
+
+
+
+
+
 
 
 
