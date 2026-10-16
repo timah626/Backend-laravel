@@ -4,7 +4,7 @@ namespace App\Modules\Users\Roles;
 
 class UserRoles
 {
-    private const INTERN = [
+    private const INTERN = [    /// i really like how i did this though
         'clock_in',
         'clock_out',
         'view_own_history',

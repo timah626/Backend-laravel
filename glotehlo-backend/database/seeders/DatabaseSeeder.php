@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         Model::unguard();   /// let me try something eh
+ 
 
         $site = Site::firstOrCreate(
             ['name' => 'Glotehlo HQ'],
