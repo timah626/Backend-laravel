@@ -12,53 +12,67 @@ use Illuminate\Http\Request;
 
 class AuthController extends Controller {
 
-public function __construct (
-    private AuthService $authService
-)
-{} //dependec
+    public function __construct
+    (
+         private AuthService $authService
+    )
+        {} //dependec
 
 
 
-public function login (Request $request) {
-    $validatedData = $request -> validate([
+    public function login (Request $request) {
+         $validatedData = $request -> validate([
 
-      'email' => 'required
-      |email',
-      'password' => 'required|min:8',
-    ]);
+        'email' => 'required|email',
+        'password' => 'required|min:8',
+        ]);
 
-    $user = $this -> authService -> login ($validatedData);
-
-
-    $request->session()->regenerate();
-
-    return response() -> json([
-        'data' => $user
-    ], 200);
+         $user = $this -> authService -> login ($validatedData);
 
 
-}
+         $request->session()->regenerate();
+
+         return response() -> json
+         ([
+            'data' => $user
+         ], 200);
 
 
+    }
 
 
 
-public function me(Request $request)
-{
-    return response()->json($request->user());
-}
+
+
+    public function me(Request $request)
+
+    {
+        return response()->json($request->user());
+    }
 
 
 
-public function logout (Request $request) {
+    public function logout (Request $request)
+
+    {
 
 
-    $this->authService->logout($request);
+        $this->authService->logout($request);
 
- return response () -> json ([
-    'message' => 'user logged out '
- ], 200);
-}
+        return response () -> json ([
+            'message' => 'user logged out '
+            ], 200);
+    }
+
+
+
+
+
+
+
+
+
+
 
 
 }
