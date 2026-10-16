@@ -14,6 +14,15 @@ Route::middleware('auth:sanctum')
 
 
 
+
+Route::middleware('auth:sanctum')
+
+->get('/interns', [AdminUserController::class, 'listInterns']);
+
+
+
+
+
 Route::middleware('auth:sanctum')
  ->get('/users', [AdminUserController::class, 'searchUsers']) ;
 

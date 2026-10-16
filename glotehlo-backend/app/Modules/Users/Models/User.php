@@ -12,6 +12,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Modules\Organisation\Models\Department;
 
 
+use App\Modules\Organisation\Models\Site;
+
+
+
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 
 use
@@ -39,6 +43,15 @@ class User extends Authenticatable
         {
             return $this->belongsTo(Department::class, 'department_id');
         }
+
+
+
+
+
+    public function site()
+    {
+         return $this->belongsTo(Site::class, 'site_id');
+    }
 
     /**
      * Get the attributes that should be cast.
