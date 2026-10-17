@@ -104,20 +104,30 @@ class AdminUserService {
 
          return [
         'id'                                         => $intern->id,
+
         'name'                                       => $intern->name,
+
         'email'                                      => $intern->email,
+
         'gender'                                     => $intern->application->gender,
+
         'school'                                     => $intern->school,
+
         'level'                                      => $intern->level,
+
         'major'                                      => $intern->major,
+        
         'department'                                 => ['id' => $intern->suggestedDepartment?->id, 'name' => $intern->suggestedDepartment?->name],
 
         'site'                                       => ['id' => $intern->site?->id, 'name'=>$intern->site->name],
 
 
         'start_date'                                 => $intern->start_date,
+
         'end_date'                                   => $intern->end_date,
+
         'active'                                     => $intern->active,
+
         'temp_password_active'                       => $intern->temp_password_active,
 
         'files'                                      => [

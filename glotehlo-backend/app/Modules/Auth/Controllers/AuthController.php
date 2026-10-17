@@ -61,7 +61,7 @@ class AuthController extends Controller {
 
         return response () -> json ([
             'message' => 'user logged out '
-            ], 200);
+            ], 204);
 
 
     }
@@ -90,7 +90,7 @@ class AuthController extends Controller {
 
 
          return response () -> json ([
-            
+
             'message' => 'PASSWORD_CHANGED SUCESSFULLY',
 
             ], 204);
