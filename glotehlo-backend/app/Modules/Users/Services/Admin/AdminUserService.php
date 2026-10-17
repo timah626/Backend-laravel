@@ -105,23 +105,26 @@ class AdminUserService {
 
 
          return [
-        'id'         => $intern->id,
-        'name'       => $intern->name,
-        'email'      => $intern->email,
-        'gender'     => $intern->application->gender,
-        'school'     => $intern->school,
-        'level'      => $intern->level,
-        'major'      => $intern->major,
-        'department' => ['id' => $intern->suggestedDepartment?->id, 'name' => $intern->suggestedDepartment?->name],
-        'site'       => ['id' => $intern->site?->id, 'name' => $intern->site?->name],
-        'start_date' => $intern->start_date,
-        'end_date'   => $intern->end_date,
-        'active'     => $intern->active,
-        'files'      => [
-            'cv'                        => $intern->application?->cv,
-            'handwritten_application'   => $intern->application?->handwritten_application,
-            'recommendation_letter'     => $intern->application?->recommendation_letter,
-            'attestation_of_attendance' => $intern->application?->attestation_of_attendance,
+        'id'                                         => $intern->id,
+        'name'                                       => $intern->name,
+        'email'                                      => $intern->email,
+        'gender'                                     => $intern->application->gender,
+        'school'                                     => $intern->school,
+        'level'                                      => $intern->level,
+        'major'                                      => $intern->major,
+        'department'                                 => ['id' => $intern->suggestedDepartment?->id, 'name' => $intern->suggestedDepartment?->name],
+
+        'site'                                       => ['id' => $intern->site?->id, 'name'=>$intern->site->name],
+
+        'start_date'                                 => $intern->start_date,
+        'end_date'                                   => $intern->end_date,
+        'active'                                     => $intern->active,
+        'files'                                      => [
+            'cv'                                     => $intern->application?->cv,
+            'handwritten_application'                => $intern->application?->handwritten_application,
+            'recommendation_letter'                  => $intern->application?->recommendation_letter,
+            'attestation_of_attendance'              => $intern->application?->attestation_of_attendance,
+            'photo_path'                             => $intern->application?->photo_path,
         ],];
 
    }
@@ -274,12 +277,12 @@ class AdminUserService {
 
 
 
-        DB::transaction(function () use ($user, $password)
+        DB::transaction(function () use ($existingUser, $password)
 
         {
-            $this->adminRepository->setTempPassword($user, $password);
+            $this->adminRepository->setTempPassword($existingUser, $password);
 
-            $this->adminRepository->deleteSessions($user->id);
+            $this->adminRepository->deleteSessions($existingUser->Id);
         });
 
         return ['temporary_password' => $password];
