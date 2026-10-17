@@ -81,27 +81,14 @@ class AdminUserController extends Controller {
 
 
 
-     //move this to the auth module later
-    public function resetPassword (Request $request , string $userId)
-     {
-
-        $user = $request -> user();
-
-
-        $newPassword = $this -> adminUserService -> resetPassword ( $user, $userId);
-
-        return response()->json(
-            [  'message' => 'okay, password changed sucessfully',
-               'data' => $newPassword,
-            ], 201);
 
 
 
-     }
 
 
 
-    public function listInterns(Request $request)
+
+     public function listInterns(Request $request)
      {
         $filters = $request->validate([
             'site_id'                => 'nullable', 'integer', 'exists:sites,id',

@@ -15,8 +15,6 @@ use  App\Modules\Onboarding\Services\PageResponse;
 
 use Illuminate\Support\Facades\DB;
 
-
-
 use App\Modules\Users\Repository\Admin\AdminRepository;
 
 
@@ -238,58 +236,7 @@ class AdminUserService {
 
 
 
-  //move this to auth timah abeg dont forget biko
-   public function resetPassword ($user, string $userId)
-   {
 
-       $existingUser = $this -> adminRepository ->findById ($userId);
-
-
-       if (!$existingUser)
-       {
-
-         throw new AppException
-             (
-                'NOT_FOUND',
-                'not found buddy',
-                 403
-             );
-
-       }
-
-
-
-       if (! $this->userPermission->can($user, 'reset_password'))
-         {
-             throw new AppException
-             (
-                'FORBIDDEN',
-                'You are not allowed',
-                 403
-             );
-
-         }
-
-
-        $randomString = Str :: random(4);
-
-        $password = $this -> generateTempPassword($randomString);
-
-
-
-        DB::transaction(function () use ($existingUser, $password)
-
-        {
-            $this->adminRepository->setTempPassword($existingUser, $password);
-
-            $this->adminRepository->deleteSessions($existingUser->Id);
-        });
-
-        return ['temporary_password' => $password];
-
-
-
-   }
 
 
 
