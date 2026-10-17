@@ -73,11 +73,7 @@ class AuthService {
 
       $request -> session() -> regenerateToken();
 
-
-
-
-
-        response()->noContent();
+      response()->noContent();
 
     }
 
@@ -129,6 +125,9 @@ class AuthService {
 
         {
             $newPassword = $this -> adminRepository -> setnewPassword($user, $validatedData['new_password']);
+
+
+            $this->adminRepository->deleteOtherSessions($userId, session()->getId());
 
             return $newPassword;
         }
