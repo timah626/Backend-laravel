@@ -112,7 +112,7 @@ class AdminUserService {
         'school'     => $intern->school,
         'level'      => $intern->level,
         'major'      => $intern->major,
-        'department' => ['id' => $intern->department?->id, 'name' => $intern->department?->name],
+        'department' => ['id' => $intern->suggestedDepartment?->id, 'name' => $intern->suggestedDepartment?->name],
         'site'       => ['id' => $intern->site?->id, 'name' => $intern->site?->name],
         'start_date' => $intern->start_date,
         'end_date'   => $intern->end_date,
