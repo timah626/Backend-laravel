@@ -96,6 +96,9 @@ return Application::configure(basePath: dirname(__DIR__))
      });
 
 
+       $exceptions->dontReport(AppException::class);
+
+
 
      /* $exceptions->render(function (\Throwable $e) {
     return response()->json([
