@@ -69,12 +69,12 @@ class AdminAuthService{
 
 
 
-        DB::transaction(function () use ($existingUser, $password)
+        DB::transaction(function () use ($existingUser, $password, $userId)
 
         {
             $this->adminRepository->setTempPassword($existingUser, $password);
 
-            $this->adminRepository->deleteSessions($existingUser->Id);
+            $this->adminRepository->deleteSessions($userId);
         });
 
         return ['temporary_password' => $password];

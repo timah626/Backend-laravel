@@ -114,15 +114,18 @@ class AdminUserService {
 
         'site'                                       => ['id' => $intern->site?->id, 'name'=>$intern->site->name],
 
+
         'start_date'                                 => $intern->start_date,
         'end_date'                                   => $intern->end_date,
         'active'                                     => $intern->active,
+        'temp_password_active'                       => $intern->temp_password_active,
+
         'files'                                      => [
             'cv'                                     => $intern->application?->cv,
             'handwritten_application'                => $intern->application?->handwritten_application,
             'recommendation_letter'                  => $intern->application?->recommendation_letter,
             'attestation_of_attendance'              => $intern->application?->attestation_of_attendance,
-            'photo_path'                             => $intern->application?->photo_path,
+            'photo_path'                             => $intern->photo_path,
         ],];
 
    }
@@ -143,6 +146,7 @@ class AdminUserService {
 
 
    }
+
 
 
 
