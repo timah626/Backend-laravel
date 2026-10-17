@@ -126,8 +126,7 @@ class AuthService {
         {
             $newPassword = $this -> adminRepository -> setnewPassword($user, $validatedData['new_password']);
 
-
-            $this->adminRepository->deleteOtherSessions($userId, session()->getId());
+            $this->adminRepository->deleteSessions($userId);
 
             return $newPassword;
         }

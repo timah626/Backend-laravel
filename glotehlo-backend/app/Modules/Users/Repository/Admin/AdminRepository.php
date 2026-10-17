@@ -166,13 +166,7 @@ class AdminRepository {
 
 
 //
-    public function deleteOtherSessions(string $userId, string $currentSessionId): void
-    {
-        DB::table('sessions')
-            ->where('user_id', $userId)
-            ->where('id', '!=', $currentSessionId)
-            ->delete();
-    }
+   
 
 
 
