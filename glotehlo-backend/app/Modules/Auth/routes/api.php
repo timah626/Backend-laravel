@@ -1,6 +1,8 @@
 <?php
 
-use App\Modules\Auth\controllers\AuthController;
+use App\Modules\Auth\Controllers\AuthController;
+
+use App\Modules\Auth\Controllers\Admin\AdminAuthController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -20,5 +22,5 @@ Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logo
 
 Route::middleware('auth:sanctum')->post('/auth/password', [AuthController::class, 'changePassword']);
 
-
+Route::middleware('auth:sanctum')->post('/users/{id}/reset-password', [AdminAuthController::class, 'resetPassword']);
 

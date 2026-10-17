@@ -37,10 +37,13 @@ class AdminAuthController extends Controller {
                'data' => $newPassword,
             ], 201);
 
-
-
     }
 
+
+
+
+
+    
 
 
     }
