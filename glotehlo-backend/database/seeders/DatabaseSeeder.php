@@ -58,7 +58,7 @@ class DatabaseSeeder extends Seeder
 
 
 
-        foreach (range(1, 20) as $n) {
+        foreach (range(1, 10) as $n) {
             User::firstOrCreate(
                 ['email' => "intern$n@glotehlo.com"],
                 [

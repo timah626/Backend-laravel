@@ -20,6 +20,9 @@ Route::get('/departments', [OrganisationController::class, 'getDepartmentsbySite
 
 
 
+Route::get('/qr/{slug}', [OrganisationController::class, 'getDepartmentsBySlug']);
+
+
 
 
 

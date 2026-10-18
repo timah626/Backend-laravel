@@ -4,14 +4,14 @@
 
 namespace App\Modules\Attendance\services;
 
-use App\Modules\Users\Repository\UserRepository;
+use App\Modules\Users\Repository\Admin\AdminRepository;
 use App\Modules\Attendance\Repository\AttendanceEventRepository;
 use App\Modules\Organisation\Repository\OrganisationRepository;
 use App\Modules\Attendance\Repository\AttendanceDaysRepository;
 
-use App\Modules\EvidenceAndScoring\services\EvidenceAndScoringService;
+use App\Modules\EvidenceAndScoring\Services\EvidenceAndScoringService;
 
-use App\Modules\Attendance\services\AttendanceMessageService;
+use App\Modules\Users\Services\UserPermission;
 
 
 use Illuminate\Support\Facades\DB;
@@ -25,12 +25,13 @@ use App\Exceptions\AppException;
 class AttendanceEventsService {
 
 public function __construct (
-  private UserRepository $userRepository,
+
   private AttendanceEventRepository $attendanceEventRepository,
   private OrganisationRepository $organisationRepository,
   private AttendanceDaysRepository $attendanceDayRepository,
   private EvidenceAndScoringService $evidenceAndScoringService,
-  private AttendanceMessageService $attendanceMessageService,
+  private UserPermission $userPermission,
+
 
 ) {}
 
@@ -39,103 +40,111 @@ public function __construct (
 
 
 
-public function clock($ip, array $data)
-{
-    $flags = [];
+    public function clock($user, $ip, array $data,)
+    {
+        $flags = [];
 
 
-    $existingEvent = $this->attendanceEventRepository
-        ->findByIdempotencyKey($data['idempotencyKey']);
+        $existingEvent = $this->attendanceEventRepository ->findByIdempotencyKey($data['idempotency_key']);
 
-    if ($existingEvent) {
-        return ['event' => $existingEvent, 'day' => null, 'already_recorded' => true];
-
-
-    }
+        if ($existingEvent)
+         {
+            return ['event' => $existingEvent, 'day' => null, 'already_recorded' => true];
 
 
-    $department = $this->organisationRepository->findDepartmentBySlug($data['slug']);
-
-    if (! $department) {
-        throw new AppException(
-          'NOT_FOUND',
-          'Not found dear',
-           404
-);
-    }
+         }
 
 
-    $user = $this->userRepository->findByEmail(strtolower($data['email']));
+        $department = $this->organisationRepository->getDepartmentsBySlug($data['qr_slug']);
 
-    if (! $user || ! $user->active) {
-        throw new AppException(
-          'INVALID_USER',
-          'Not allowed',
-           403
-);
-    }
-
-
-    if ($user->department_id !== $department->id) {
-        $flags[] = 'wrong_department';
-    }
-
-
-    $site = $this->organisationRepository->findSite($department->site_id);
-
-
-
-    if (! $site) {
-      throw new AppException(
-          'NOT_FOUND',
-          'Not found dear',
-           404
-      );
-
-
-     }
-
-
-
-    $localDate = now()->setTimezone($site->timezone)->toDateString();
-
-    // chelsie . just waka make dull dull mistake them...... saved together or not at all
-    return DB::transaction(function () use ($ip, $data, $user, $department, $site, $flags, $localDate) {
-
-        $day = $this->attendanceDayRepository
-            ->findAttendanceOfUserByDay($user->id, $localDate);
-
-        if ($data['kind'] === 'out' && !$day) {
-            $flags[] = 'no_clock_in';
+        if (! $department)
+        {
+            throw new AppException
+                (
+                    'NOT_FOUND',
+                    'Not found dear',
+                     404
+                );
         }
 
 
 
-        $score = $this ->evidenceAndScoringService-> score ($ip,  $site);
+
+        if (! $user || ! $user->active)
+        {
+            throw new AppException
+            (
+                'INVALID_USER',
+                'Not allowed',
+                403
+            );
+        }
+
+
+        if ($user->department_id !== $department->id)
+        {
+            $flags[] = 'wrong_department';
+        }
+
+
+        $site = $this->organisationRepository->findSite($department->site_id);
+
+
+
+        if (! $site)
+         {
+            throw new AppException
+            (
+                'NOT_FOUND',
+                'Not found dear',
+                404
+            );
+
+
+         }
+
+
+
+        $localDate = now()->setTimezone($site->timezone)->toDateString();
+
+      // chelsie . just waka make dull dull mistake them...... saved together or not at all
+        return DB::transaction(function () use ($ip, $data, $user, $department, $site, $flags, $localDate)
+        {
+         $day = $this->attendanceDayRepository ->findAttendanceOfUserByDay($user->id, $localDate);
+
+
+        if ($data['kind'] === 'in' && $day)
+        {
+            return ['day' => $day, 'already_recorded' => true];
+        }
+
+
+        if ($data['kind'] === 'out' && !$day)
+        {
+            $flags[] = 'no_clock_in';
+        }
+
+        $score = $this->evidenceAndScoringService->score(  $user, $ip, $site->id, $data['device_token'] ?? null);
 
         $event = $this->attendanceEventRepository->createEvent([
-            'user_id'         => $user->id,
-            'site_id'         => $department->site_id,
-            'department_id'   => $department->id,
-            'kind'            => $data['kind'],
-            'source_ip'       => $ip,
-            'state'           => $score ['state'],
+            'user_id'            => $user->id,
+            'site_id'            => $department->site_id,
+            'department_id'      => $department->id,
+            'kind'               => $data['kind'],
+            'source_ip'          => $ip,
+            'state'              => $score['state'],
             'matched_network_id' => $score['matchedNetworkId'],
-
             'flags'              => array_merge($flags, $score['flags']),
-            'idempotency_key' => $data['idempotencyKey'],
+            'idempotency_key'    => $data['idempotency_key'],
+            'device_id' => $score['deviceId'],
         ]);
 
         $localTime = $event->server_time->copy()->setTimezone($site->timezone);
 
 
-        if ($data['kind'] === 'in' && $day ) {
-
-          return [ 'day' => $day, 'already_recorded' => true];
-        }
-
-        if ($data['kind'] === 'in' && ! $day) {
-            $day = $this->attendanceDayRepository->createAttendanceDay([
+        if ($data['kind'] === 'in')
+         {
+                $day = $this->attendanceDayRepository->createAttendanceDay([
                 'user_id'       => $user->id,
                 'site_id'       => $department->site_id,
                 'department_id' => $user->department_id,
@@ -147,16 +156,52 @@ public function clock($ip, array $data)
         }
 
 
+        if ($data['kind'] === 'out' && $day)
+        {
 
-
-        if ($data['kind']==='out' && $day) {
             $day = $this->attendanceDayRepository->setLastOut($day, $event->server_time);
-            return ['day' => $day, 'already_recorded' => true];
         }
 
-        return ['event' => $event, 'day' => $day, 'already_recorded' => false];
-    });
-}
+        return ['event' => $event, 'day' => $day, 'already_recorded' => false,
+        'device_token' => $score['newToken']];
+        });
+    }
+
+
+
+
+
+    public function getMyAttendanceToday ($user)
+    {
+
+        $userId = $user -> id;
+
+        $departmentId =  $user -> department_id;
+
+        $site = $this -> organisationRepository-> findSiteByDepartmentId($departmentId);
+
+        if (!$site)
+        {
+
+
+            throw new AppException
+            (
+                'NOT_FOUND',
+                'Not found dear',
+                404
+            );
+
+        }
+
+        $localDate = now()->setTimezone($site->timezone)->toDateString();
+
+
+        $attendanceToday = $this -> attendanceDayRepository -> findAttendanceOfUserByDay($userId, $localDate);
+
+
+        return $attendanceToday;
+
+    }
 
 
 

@@ -7,10 +7,9 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::post('/clock-in', [AttendanceController::class, 'clockIn']);
-
-Route::post('/clock-out', [AttendanceController::class, 'clockOut']);
+Route::middleware('auth:sanctum')->post('/attendance/clock', [AttendanceController::class, 'clock']);
 
 
 
+Route::middleware('auth:sanctum') -> get ('attendance/me/today', [AttendanceController::class, 'getMyAttendanceToday']);
 

@@ -23,6 +23,7 @@ class AttendanceDay extends Model
         'first_in_at' => 'datetime',
         'last_out_at' => 'datetime',
         'late'        => 'boolean',
+        'reviewed_at' => 'datetime'
     ];
 }
 
