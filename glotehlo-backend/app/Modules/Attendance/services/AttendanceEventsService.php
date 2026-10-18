@@ -8,7 +8,7 @@ use App\Modules\Users\Repository\Admin\AdminRepository;
 use App\Modules\Attendance\Repository\AttendanceEventRepository;
 use App\Modules\Organisation\Repository\OrganisationRepository;
 use App\Modules\Attendance\Repository\AttendanceDaysRepository;
-
+use  App\Modules\Onboarding\Services\PageResponse;
 use App\Modules\EvidenceAndScoring\Services\EvidenceAndScoringService;
 
 use App\Modules\Users\Services\UserPermission;
@@ -42,6 +42,19 @@ public function __construct (
 
     public function clock($user, $ip, array $data,)
     {
+
+        if (! $this->userPermission->can($user, 'clock_in'))
+         {
+             throw new AppException
+             (
+                'FORBIDDEN',
+                'You are not allowed',
+                 403
+             );
+
+         }
+
+
         $flags = [];
 
 
@@ -173,12 +186,24 @@ public function __construct (
 
     public function getMyAttendanceToday ($user)
     {
+         if (! $this->userPermission->can($user, 'view_own_history'))
+         {
+             throw new AppException
+             (
+                'FORBIDDEN',
+                'You are not allowed',
+                 403
+             );
+
+         }
 
         $userId = $user -> id;
 
         $departmentId =  $user -> department_id;
 
         $site = $this -> organisationRepository-> findSiteByDepartmentId($departmentId);
+
+
 
         if (!$site)
         {
@@ -203,6 +228,38 @@ public function __construct (
 
     }
 
+
+
+    public function getAllMyAttendance ($user) {
+
+        $userId = $user -> id;
+
+        if (! $this->userPermission->can($user, 'view_own_history'))
+         {
+             throw new AppException
+             (
+                'FORBIDDEN',
+                'You are not allowed',
+                 403
+             );
+
+
+         }
+
+         $allMyAttendance = $this -> attendanceDayRepository ->  allMyAttendance ($userId);
+
+
+         return PageResponse::from($allMyAttendance);
+
+
+
+
+
+
+
+
+
+    }
 
 
 

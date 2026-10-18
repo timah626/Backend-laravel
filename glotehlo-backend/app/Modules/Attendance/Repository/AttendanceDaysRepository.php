@@ -2,9 +2,11 @@
 
 
 namespace App\Modules\Attendance\Repository;
-use App\Modules\Users\Models\User;
-use Carbon\Carbon;
+
 use App\Modules\Attendance\Models\AttendanceDay;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+
+
 
 
 
@@ -39,6 +41,19 @@ class AttendanceDaysRepository {
 
           return $day;
       }
+
+      
+
+    public function allMyAttendance ($userId,    int $perPage = 10): LengthAwarePaginator
+    {
+      return AttendanceDay ::where ('user_id', $userId)
+                            ->orderBy ('date', 'desc')
+                            ->paginate($perPage);
+
+    }
+
+
+
 
 
 

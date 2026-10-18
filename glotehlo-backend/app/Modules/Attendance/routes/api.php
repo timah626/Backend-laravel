@@ -13,3 +13,12 @@ Route::middleware('auth:sanctum')->post('/attendance/clock', [AttendanceControll
 
 Route::middleware('auth:sanctum') -> get ('attendance/me/today', [AttendanceController::class, 'getMyAttendanceToday']);
 
+
+Route::middleware('auth:sanctum') -> get ('attendance/me', [AttendanceController::class, 'getAllMyAttendance']);
+
+
+
+
+
+
+
