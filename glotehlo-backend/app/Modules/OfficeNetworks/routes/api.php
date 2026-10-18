@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::middleware('auth:sanctum')
-    ->post('/sites/{siteId}/networks', [OfficeNetworkController::class, 'addCurrentConnection']);
+    ->post('/sites/{siteId}/addnetworks', [OfficeNetworkController::class, 'addCurrentConnection']);
 
 
 

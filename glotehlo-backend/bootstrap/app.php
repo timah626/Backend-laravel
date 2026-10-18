@@ -37,7 +37,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'api/sites',
             'api/departments',
             'api/sites/*/departments',
-            'api/sites/*/networks',
+            'api/sites/*/addnetworks',
             'api/sites/*/allnetworks',
             'api/clock-in',
             'api/clock-out',
