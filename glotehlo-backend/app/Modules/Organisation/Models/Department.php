@@ -18,6 +18,11 @@ class Department extends Model
     protected $guarded = [];
 
 
-   
+
+    public function site()
+    {
+         return $this->belongsTo(Site::class, 'site_id');
+    }
+
 
 }

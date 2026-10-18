@@ -24,30 +24,24 @@ return new class extends Migration
              $table->foreignUlid('site_id')->constrained('sites')->restrictOnDelete();
 
              $table->foreignUlid('department_id')->constrained('departments')->restrictOnDelete();
-            
+
               $table -> enum ('kind', ['in', 'out']);
 
               $table->timestampTz('server_time')->useCurrent();
 
               $table -> ipAddress('source_ip');
-             
-             $table->foreignUlid('device_id')->nullable()->constrained('devices')->nullOnDelete();
 
+             $table->foreignUlid('device_id')->nullable()->constrained('devices')->nullOnDelete();
 
              $table->foreignUlid('matched_network_id')->nullable()->constrained('office_networks')->nullOnDelete();
 
-
              $table->enum('state', ['clean', 'unverified', 'pending', 'confirmed', 'rejected']);
-
 
              $table->uuid('idempotency_key')->unique();
 
-
              $table->foreignUlid('reviewed_by')->nullable()->constrained('users')->restrictOnDelete();
 
-
              $table->timestampTz('reviewed_at')->nullable();
-
 
             $table->text('review_note')->nullable();
         });
@@ -60,7 +54,7 @@ return new class extends Migration
     }
 
 
-    
+
     public function down(): void
     {
         Schema::dropIfExists('attendance_events');

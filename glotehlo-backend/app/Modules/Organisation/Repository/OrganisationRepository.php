@@ -54,10 +54,27 @@ class OrganisationRepository {
 
 
 
-     public function findDepartmentBySlug(string $slug): ?Department
+     public function getDepartmentsBySlug(string $slug):?Department
     {
         return Department::where('qr_slug', $slug)->first();
     }
+
+
+    public function findSiteByDepartmentId(string $departmentId): ?Site
+   {
+         return Department::with('site')
+            ->where('id', $departmentId)
+             ->first()?->site;
+   }
+
+
+
+
+
+
+
+
+
 
 
 }

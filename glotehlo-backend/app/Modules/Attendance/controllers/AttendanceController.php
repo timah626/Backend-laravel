@@ -21,93 +21,54 @@ public function   __construct (
 
 
 
-public  function clockIn(Request $request  )  {
+    public function clock(Request $request)
+    {
+        $validatedData = $request->validate([
+            'action'          => 'required|in:in,out',
+            'qr_slug'         => 'required|string|max:40',
+            'idempotency_key' => 'required|uuid',
+            'device_token'    => 'nullable|string|max:100',
+        ]);
 
-      $validatedData = $request->validate([
-         'email'          => 'required|email',
-         'slug'           => 'required|string|max:40',
-         'idempotencyKey' => 'required|uuid',
-         'deviceToken'    => 'nullable|string|max:100',
-          ]);
+        $validatedData['kind'] = $validatedData['action'];
 
+        $user = $request->user();
 
-       $validatedData['kind'] = 'in';
+        $clockRequest = $this->attendanceEventsService->clock(
+            $user,
+            $request->ip(),
+            $validatedData
+        );
 
-  $clockinRequest =  $this -> attendanceEventsService ->clock  (
-        $request -> ip(),
-        $validatedData,
+        $statusCode = $clockRequest['already_recorded']
+            ? 200
+            : 201;
 
-
-  );
-
-    $statusCode = $clockinRequest['already_recorded']
-    ? 200
-    : 201;
-
-     return response() -> json([
-
-        'data' => $clockinRequest,
-
-    ], $statusCode);
-
-
-
-}
+        return response()->json([
+            'data' => $clockRequest,
+        ], $statusCode);
+    }
 
 
 
-public  function clockOut(Request $request  )  {
+     public function getMyAttendanceToday(Request $request)
+     {
 
+          $user =  $request ->user () ;
 
-
-      $validatedData = $request->validate([
-         'email'          => 'required|email',
-         'slug'           => 'required|string|max:40',
-         'idempotencyKey' => 'required|uuid',
-         'deviceToken'    => 'nullable|string|max:100',
-          ]);
-
-
-       $validatedData['kind'] = 'out';
-
-
-
-  $clockinRequest =  $this -> attendanceEventsService ->clock (
-        $request -> ip(),
-        $validatedData,
-
-
-  );
-
-    $statusCode = $clockinRequest['already_recorded']
-    ? 200
-    : 201;
-
-     return response() -> json([
-
-        'data' => $clockinRequest,
-
-    ], $statusCode);
-
-
-
-}
+          $attendance = $this -> attendanceEventsService -> getMyAttendanceToday ($user);
 
 
 
 
+          return response()->json([
+             'data' => $attendance,
+          ], 200);
 
 
 
 
-
-
-
-
-
-
-
-
+     }
 
 
 
@@ -115,3 +76,23 @@ public  function clockOut(Request $request  )  {
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

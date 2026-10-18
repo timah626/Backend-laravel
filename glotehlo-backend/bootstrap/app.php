@@ -52,7 +52,9 @@ return Application::configure(basePath: dirname(__DIR__))
             'api/users/*/reset-password',
             'api/interns',
             'api/interns/*',
-            'api/auth/password'
+            'api/auth/password',
+            'api/qr/*',
+            'api/attendance/clock'   //get departments by slug
         ]
     );
 })
