@@ -65,10 +65,44 @@ public function   __construct (
              'data' => $attendance,
           ], 200);
 
+     }
 
 
+
+     public function getAllMyAttendance (Request $request)
+     {
+
+
+
+        $user = $request -> user();
+
+        $allMyAttendance = $this ->  attendanceEventsService -> getAllMyAttendance($user);
+
+
+        return response()->json([
+             $allMyAttendance
+          ], 200);
 
      }
+
+
+
+
+    public function getMyAttendanceSummary (Request $request)
+    {
+        $user = $request -> user();
+
+        $summary = $this -> attendanceEventsService -> getMyAttendanceSummary($user);
+
+        return response()->json([
+            'data' => $summary,
+          ], 200);
+
+    }
+
+
+
+
 
 
 

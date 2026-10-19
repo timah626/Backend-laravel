@@ -2,9 +2,14 @@
 
 
 namespace App\Modules\Attendance\Repository;
-use App\Modules\Users\Models\User;
-use Carbon\Carbon;
+
 use App\Modules\Attendance\Models\AttendanceDay;
+
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+
+use Illuminate\Database\Eloquent\Collection;
+
+
 
 
 
@@ -39,6 +44,45 @@ class AttendanceDaysRepository {
 
           return $day;
       }
+
+
+
+    public function allMyAttendance ($userId,  int $perPage = 10): LengthAwarePaginator
+    {
+      return AttendanceDay ::where ('user_id', $userId)
+                            ->orderBy ('date', 'desc')
+                            ->paginate($perPage);
+
+    }
+
+    public function countUserDaysBetween(string $userId,  string $startDate, string $endDate): int
+
+    {
+        return AttendanceDay::where('user_id', $userId)
+        ->whereBetween('date', [$startDate, $endDate])
+        ->count();
+    }
+
+
+    public function countLateDaysBetween( string $userId, string $startDate, string $endDate): int
+    {
+        return AttendanceDay::where('user_id', $userId)
+            ->whereBetween('date', [$startDate, $endDate])
+            ->where('late', true)
+            ->count();
+   }
+
+
+   public function getDepartmentDaysByDate ( string $departmentId, string $localDate) :Collection
+   {
+    
+        return AttendanceDay ::  where('department_id', $departmentId)
+                               ->where('date', $localDate)
+                               ->get();
+   }
+
+
+
 
 
 
