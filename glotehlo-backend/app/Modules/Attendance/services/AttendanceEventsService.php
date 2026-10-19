@@ -304,13 +304,13 @@ public function __construct (
 
         $lateThisMonth = $this->attendanceDayRepository->countLateDaysBetween($userId, $monthStart,$monthEnd);
 
-        $weekPresent = $this->attendanceDayRepository->countUserDaysBetween($userId, $weekStart,$localDate);
+
 
         return
         [
             'today' => $attendanceToday,
-            'week_present' => $weekPresent,
-            'week_days' => $countOfAttendanceDays,
+            'week_present' => $countOfAttendanceDays,
+            'week_days' => 5,
             'late_this_month' => $lateThisMonth,
         ];
 
