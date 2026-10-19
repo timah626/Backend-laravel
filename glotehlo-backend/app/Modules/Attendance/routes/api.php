@@ -2,7 +2,7 @@
 
 use App\Modules\Attendance\controllers\AttendanceController;
 
-use App\Modules\Attendance\controllers\Internhead\InternHeadAttendanceController;
+use App\Modules\Attendance\controllers\InternHead\InternHeadAttendanceController;
 
 use Illuminate\Support\Facades\Route;
 
