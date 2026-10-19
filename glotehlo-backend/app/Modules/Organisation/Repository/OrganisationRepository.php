@@ -40,7 +40,7 @@ class OrganisationRepository {
     public function findDepartmentbySite(string $siteId): Collection
     {
      return Department::where('site_id', $siteId)
-                         ->select('id', 'name', )
+                         ->select('id', 'name', 'qr_slug' )
             ->get();
     }
 
