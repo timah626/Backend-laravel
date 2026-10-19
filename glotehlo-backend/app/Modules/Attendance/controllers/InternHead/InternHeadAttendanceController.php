@@ -2,7 +2,7 @@
 
 namespace App\Modules\Attendance\controllers\InternHead;
 use Illuminate\Http\Request;
-use  App\Http\controllers\Controller;
+use  App\Http\Controllers\Controller;
 use App\Modules\Attendance\services\InternHead\InternHeadAttendanceService;
 
 
