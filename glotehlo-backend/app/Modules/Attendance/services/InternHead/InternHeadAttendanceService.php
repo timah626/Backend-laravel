@@ -224,11 +224,19 @@ class InternHeadAttendanceService {
 
         }
 
-        if($day->department_id === $user->department_id && $day->user_id !== $userId)
+        if ($day->state !== 'unverified' && $day->state !== 'pending')
         {
+            throw new AppException
+             (
+                'ALREADY_DECIDED',
+                'this Attendance has been checked already',
+                 409
+             );
 
 
         }
+
+        
 
 
 
