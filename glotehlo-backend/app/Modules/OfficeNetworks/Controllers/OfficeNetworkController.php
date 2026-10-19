@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\OfficeNetworks\controllers;
+namespace App\Modules\OfficeNetworks\Controllers;
 
 use  App\Http\Controllers\Controller;
 

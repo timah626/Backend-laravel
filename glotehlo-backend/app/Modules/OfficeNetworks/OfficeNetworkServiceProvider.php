@@ -6,7 +6,7 @@ namespace App\Modules\OfficeNetworks;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
-class OfficeNetworksServiceProvider extends ServiceProvider
+class OfficeNetworkServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
@@ -14,7 +14,7 @@ class OfficeNetworksServiceProvider extends ServiceProvider
 
 
 
-        
+
         Route::middleware('api')
             ->prefix('api')
             ->group(__DIR__ . '/routes/api.php');
