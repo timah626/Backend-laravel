@@ -16,6 +16,8 @@ Route::middleware('auth:sanctum') -> get ('attendance/me/today', [AttendanceCont
 
 Route::middleware('auth:sanctum') -> get ('attendance/me', [AttendanceController::class, 'getAllMyAttendance']);
 
+Route::middleware('auth:sanctum') -> get ('attendance/me/summary', [AttendanceController::class, 'getMyAttendanceSummary']);
+
 
 
 

@@ -88,6 +88,21 @@ public function   __construct (
 
 
 
+    public function getMyAttendanceSummary (Request $request)
+    {
+        $user = $request -> user();
+
+        $summary = $this -> attendanceEventsService -> getMyAttendanceSummary($user);
+
+        return response()->json([
+            'data' => $summary,
+          ], 200);
+
+    }
+
+
+
+
 
 
 

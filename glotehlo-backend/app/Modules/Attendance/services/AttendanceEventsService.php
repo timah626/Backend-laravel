@@ -8,9 +8,9 @@ use App\Modules\Users\Repository\Admin\AdminRepository;
 use App\Modules\Attendance\Repository\AttendanceEventRepository;
 use App\Modules\Organisation\Repository\OrganisationRepository;
 use App\Modules\Attendance\Repository\AttendanceDaysRepository;
-use  App\Modules\Onboarding\Services\PageResponse;
+use App\Modules\Onboarding\Services\PageResponse;
 use App\Modules\EvidenceAndScoring\Services\EvidenceAndScoringService;
-
+use Carbon\Carbon;
 use App\Modules\Users\Services\UserPermission;
 
 
@@ -128,13 +128,27 @@ public function __construct (
 
         if ($data['kind'] === 'in' && $day)
         {
-            return ['day' => $day, 'already_recorded' => true];
+
+            throw new AppException
+            (
+                'ALREADY_CLOCKED_IN',
+                'clocked in already dearest',
+                409
+            );
         }
 
 
         if ($data['kind'] === 'out' && !$day)
         {
             $flags[] = 'no_clock_in';
+
+            throw new AppException
+            (
+                'NOT_CLOCKED_IN',
+                'where are you clockcing out to without clocking in dearest',
+                409
+            );
+
         }
 
         $score = $this->evidenceAndScoringService->score(  $user, $ip, $site->id, $data['device_token'] ?? null);
@@ -246,20 +260,69 @@ public function __construct (
 
          }
 
+
          $allMyAttendance = $this -> attendanceDayRepository ->  allMyAttendance ($userId);
 
 
          return PageResponse::from($allMyAttendance);
 
+    }
 
 
+    public function getMyAttendanceSummary ($user) {
+
+        $userId = $user -> id;
+
+        if (! $this->userPermission->can($user, 'view_own_history'))
+         {
+             throw new AppException
+             (
+                'FORBIDDEN',
+                'You are not allowed',
+                 403
+             );
 
 
+        }
 
+
+        $departmentId =  $user -> department_id;
+
+        $site = $this -> organisationRepository-> findSiteByDepartmentId($departmentId);
+
+        $localDate = now()->setTimezone($site->timezone)->toDateString();
+
+        $attendanceToday = $this->attendanceDayRepository->findAttendanceOfUserByDay($userId, $localDate);
+
+        $weekStart = now()->setTimezone($site->timezone)->startOfWeek(Carbon::MONDAY)->toDateString();
+
+        $countOfAttendanceDays = $this -> attendanceDayRepository -> countUserDaysBetween($userId,  $weekStart, $localDate);
+
+        $monthStart = now()->setTimezone($site->timezone)->startOfMonth()->toDateString();
+
+        $monthEnd = now()->setTimezone($site->timezone)->endOfMonth()->toDateString();
+
+        $lateThisMonth = $this->attendanceDayRepository->countLateDaysBetween($userId, $monthStart,$monthEnd);
+
+        $weekPresent = $this->attendanceDayRepository->countUserDaysBetween($userId, $weekStart,$localDate);
+
+        return
+        [
+            'today' => $attendanceToday,
+            'week_present' => $weekPresent,
+            'week_days' => $countOfAttendanceDays,
+            'late_this_month' => $lateThisMonth,
+        ];
 
 
 
     }
+
+
+
+
+
+
 
 
 
