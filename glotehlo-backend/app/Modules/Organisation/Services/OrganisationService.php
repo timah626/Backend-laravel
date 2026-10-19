@@ -70,7 +70,7 @@ class OrganisationService {
 
 
 
-    public function getDepartmentsbySite(  $siteId)
+    public function getDepartmentsbySite($siteId)
     {
 
          return $this->organisationRepository->findDepartmentbySite($siteId);
