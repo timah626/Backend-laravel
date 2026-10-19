@@ -23,6 +23,12 @@ Route::middleware('auth:sanctum') -> get ('attendance/me/summary', [AttendanceCo
 Route::middleware('auth:sanctum') -> get ('attendance/department/today', [InternHeadAttendanceController::class, 'getAttendancePerDepartment']);
 
 
+Route::middleware('auth:sanctum') -> get ('attendance/department', [InternHeadAttendanceController::class, 'departmentHistory']);
+
+
+
+
+
 
 
 

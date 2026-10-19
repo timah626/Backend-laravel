@@ -10,12 +10,12 @@ use App\Modules\Attendance\services\InternHead\InternHeadAttendanceService;
 
 class   InternHeadAttendanceController extends Controller {
 
-   public function __construct(
+    public function __construct(
 
         private  InternHeadAttendanceService  $internHeadAttendanceService
-   ) {}
+    ) {}
 
-   public function getAttendancePerDepartment (Request $request) {
+    public function getAttendancePerDepartment (Request $request) {
 
 
         $user = $request -> user();
@@ -29,7 +29,31 @@ class   InternHeadAttendanceController extends Controller {
 
 
 
-   }
+    }
+
+    public function departmentHistory(Request $request)
+    {
+
+
+        $validatedData = $request->validate([
+            'from'      => 'nullable|date',
+            'to'        => 'nullable|date|after_or_equal:from',
+            'intern_id' => 'nullable',
+            'page'      => 'nullable|integer|min:1',
+            'per_page'  => 'nullable|integer|min:1|max:100',
+        ]);
+
+
+        $user = $request -> user();
+
+
+
+        $result = $this->internHeadAttendanceService->getDepartmentHistory($user,  $validatedData);
+
+        return response()->json([
+             'data' => $result,
+        ], 200);
+    }
 
 
 
