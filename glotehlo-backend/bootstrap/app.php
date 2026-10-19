@@ -56,6 +56,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'api/qr/*',  //get departments by slug
             'api/attendance/clock',
             'api/attendance/me/summary',
+            'api/attendance/department/today'
         ]
     );
 })

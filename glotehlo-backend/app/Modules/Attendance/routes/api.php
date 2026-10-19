@@ -2,6 +2,8 @@
 
 use App\Modules\Attendance\controllers\AttendanceController;
 
+use App\Modules\Attendance\controllers\Internhead\InternHeadAttendanceController;
+
 use Illuminate\Support\Facades\Route;
 
 
@@ -17,6 +19,12 @@ Route::middleware('auth:sanctum') -> get ('attendance/me/today', [AttendanceCont
 Route::middleware('auth:sanctum') -> get ('attendance/me', [AttendanceController::class, 'getAllMyAttendance']);
 
 Route::middleware('auth:sanctum') -> get ('attendance/me/summary', [AttendanceController::class, 'getMyAttendanceSummary']);
+
+Route::middleware('auth:sanctum') -> get ('attendance/department/today', [InternHeadAttendanceController::class, 'getAttendancePerDepartment']);
+
+
+
+
 
 
 

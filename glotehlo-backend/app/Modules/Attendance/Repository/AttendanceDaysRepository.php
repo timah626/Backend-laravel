@@ -7,6 +7,8 @@ use App\Modules\Attendance\Models\AttendanceDay;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
+use Illuminate\Database\Eloquent\Collection;
+
 
 
 
@@ -68,7 +70,18 @@ class AttendanceDaysRepository {
             ->whereBetween('date', [$startDate, $endDate])
             ->where('late', true)
             ->count();
-}
+   }
+
+
+   public function getDepartmentDaysByDate ( string $departmentId, string $localDate) :Collection
+   {
+    
+        return AttendanceDay ::  where('department_id', $departmentId)
+                               ->where('date', $localDate)
+                               ->get();
+   }
+
+
 
 
 
