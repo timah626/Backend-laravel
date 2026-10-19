@@ -2,7 +2,8 @@
 
 namespace App\Modules\Attendance\controllers;
 
-use  App\Http\controllers\Controller;
+
+use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
