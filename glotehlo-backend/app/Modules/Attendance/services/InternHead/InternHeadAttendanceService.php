@@ -10,6 +10,10 @@ use App\Modules\Attendance\Repository\AttendanceDaysRepository;
 
 use App\Modules\Users\Repository\Admin\AdminRepository;
 
+use  App\Modules\Onboarding\Services\PageResponse;
+
+
+
 
 use App\Exceptions\AppException;
 
@@ -30,7 +34,8 @@ class InternHeadAttendanceService {
      ){}
 
 
-     public function getAttendanceperDepartmentToday ($user) {
+    public function getAttendanceperDepartmentToday ($user)
+    {
 
         if (! $this->userPermission->can($user, 'view_department_today'))
         {
@@ -131,7 +136,64 @@ class InternHeadAttendanceService {
            'rows' => $rows,
               ];
 
-     }
+    }
+
+
+    public function getDepartmentHistory ($user, array $validatedData)
+
+    {
+
+       if (! $this->userPermission->can($user, 'view_department_today'))
+        {
+             throw new AppException
+             (
+                'FORBIDDEN',
+                'You are not allowed',
+                 403
+             );
+
+        }
+
+        $departmentId = $user->department_id;
+
+        $localDate = now()->setTimezone('Africa/Douala') ->toDateString();
+
+
+        $to = $validatedData['to'] ?? $localDate;
+
+        $from = $validatedData['from'] ?? now()->setTimezone('Africa/Douala') ->subDays(29) ->toDateString();
+
+
+        if (isset($validatedData['intern_id']))
+        {
+
+            $intern = $this->adminRepository->findById($validatedData['intern_id']);
+
+
+            if ( !$intern || $intern->department_id !== $departmentId || $intern->role !== 'intern')
+            {
+
+                throw new AppException
+                (
+                'FORBIDDEN',
+                'This intern does not belong to your department.',
+                 403
+                );
+            }
+
+        }
+
+
+        $page = $this->attendanceDayRepository->getDepartmentHistory($departmentId, $from, $to, $validatedData['intern_id'] ?? null, $validatedData['per_page'] ?? 10);
+
+
+        return PageResponse::from($page);
+
+
+    }
+
+
+    
 
 
 

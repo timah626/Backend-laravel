@@ -75,11 +75,30 @@ class AttendanceDaysRepository {
 
    public function getDepartmentDaysByDate ( string $departmentId, string $localDate) :Collection
    {
-    
+
         return AttendanceDay ::  where('department_id', $departmentId)
                                ->where('date', $localDate)
                                ->get();
    }
+
+
+   public function getDepartmentHistory(string $departmentId, string $from, string $to, ?string $internId,int $perPage = 10): LengthAwarePaginator
+   {
+
+
+        $query = AttendanceDay::where('department_id', $departmentId)
+                              ->whereBetween('date', [$from, $to]);
+
+        if ($internId !== null)
+        {
+             $query->where('user_id', $internId);
+        }
+
+        return $query->orderBy('date', 'desc')
+             ->paginate($perPage);
+    }
+
+    
 
 
 
