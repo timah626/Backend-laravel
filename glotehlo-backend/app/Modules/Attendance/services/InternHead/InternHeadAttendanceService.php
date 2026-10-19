@@ -78,11 +78,14 @@ class InternHeadAttendanceService {
                  [
 
                     'intern' => [
-                         'id' => $intern->id,
-                         'name' => $intern->name,
+                         'id' =>$day ->intern->id,
+                         'name' =>$day->intern->name,
                          ],
+                     'first_in_at' => $day->first_in_at,
+                     'last_out_at' => $day->last_out_at,
+                     'state' => $day->state,
 
-                    'day' => $day,
+                   // 'day' => $day,
                  ];
             }
 
@@ -195,7 +198,22 @@ class InternHeadAttendanceService {
 
     public function confirmAttendance ($user, string $dayId)
     {
-        if (! $this->userPermission->can($user, 'confirm_record'))
+        $day = $this -> attendanceDayRepository -> findDayById($dayId);
+        $userId = $user -> id;
+
+        if (!$day)
+        {
+            throw new AppException
+            (
+            'NOT_FOUND',
+            'Attendance record not found',
+             404
+            );
+        }
+
+
+
+        if (! $this->userPermission->can($user, 'confirm_record',  $day))
         {
              throw new AppException
              (
@@ -206,8 +224,21 @@ class InternHeadAttendanceService {
 
         }
 
+        if($day->department_id === $user->department_id && $day->user_id !== $userId)
+        {
 
-        
+
+        }
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -23,9 +23,8 @@ class   InternHeadAttendanceController extends Controller {
         $attendancePerDepartment = $this -> internHeadAttendanceService -> getAttendancePerDepartmentToday ($user);
 
 
-        return response()->json([
-             'data' => $attendancePerDepartment,
-          ], 200);
+        return response()->json(
+              $attendancePerDepartment, 200);
 
 
 

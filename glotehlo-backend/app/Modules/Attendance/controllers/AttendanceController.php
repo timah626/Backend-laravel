@@ -80,9 +80,9 @@ public function   __construct (
         $allMyAttendance = $this ->  attendanceEventsService -> getAllMyAttendance($user);
 
 
-        return response()->json([
+        return response()->json(
              $allMyAttendance
-          ], 200);
+          , 200);
 
      }
 
