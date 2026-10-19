@@ -56,38 +56,36 @@ class InternHeadAttendanceService {
 
         $days = $this->attendanceDayRepository->getDepartmentDaysByDate( $departmentId, $localDate);
 
-
         $rows = [];
 
-            foreach ($interns as $intern)
+        foreach ($interns as $intern)
+        {
+            $day = null;
+
+            foreach ($days as $attendanceDay)
             {
-                $day = null;
-
-                foreach ($days as $attendanceDay)
-                {
-
-                    if ($attendanceDay->user_id === $intern->id)
-                    {
-                         $day = $attendanceDay;
-                         break;
-                    }
-
-                }
-
-                 $rows[] =
-                 [
-
-                    'intern' => [
-                         'id' =>$day ->intern->id,
-                         'name' =>$day->intern->name,
-                         ],
-                     'first_in_at' => $day->first_in_at,
-                     'last_out_at' => $day->last_out_at,
-                     'state' => $day->state,
-
-                   // 'day' => $day,
-                 ];
+                if ($attendanceDay->user_id === $intern->id)
+            {
+                 $day = $attendanceDay;
+                 break;
             }
+            }
+
+            $rows[] =
+            [
+                 'intern' =>
+                    [
+                        'id'   => $intern->id,
+                        'name' => $intern->name,
+                    ],
+
+                  'first_in_at' => $day?->first_in_at,
+                  'last_out_at' => $day?->last_out_at,
+                  'state'       => $day?->state ?? 'not_in',
+                  'day'         => $day,
+    ];
+}
+
 
 
         $present = 0;
@@ -236,7 +234,7 @@ class InternHeadAttendanceService {
 
         }
 
-        
+
 
 
 
