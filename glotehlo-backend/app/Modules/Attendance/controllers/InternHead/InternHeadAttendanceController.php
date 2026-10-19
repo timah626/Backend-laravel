@@ -46,13 +46,26 @@ class   InternHeadAttendanceController extends Controller {
 
         $user = $request -> user();
 
-
-
         $result = $this->internHeadAttendanceService->getDepartmentHistory($user,  $validatedData);
 
         return response()->json([
              'data' => $result,
         ], 200);
+    }
+
+
+    public function confirmAttendance (Request $request , string $dayId)
+    {
+
+        $user = $request -> user();
+
+        $confirmedAttendance = $this -> internHeadAttendanceService ->confirmAttendance($user, $dayId);
+
+        return response()->json([
+             'data' => $confirmedAttendance,
+        ], 200);
+
+
     }
 
 

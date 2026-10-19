@@ -193,7 +193,28 @@ class InternHeadAttendanceService {
     }
 
 
-    
+    public function confirmAttendance ($user, string $dayId)
+    {
+        if (! $this->userPermission->can($user, 'confirm_record'))
+        {
+             throw new AppException
+             (
+                'FORBIDDEN',
+                'You are not allowed',
+                 403
+             );
+
+        }
+
+
+        
+
+
+
+    }
+
+
+
 
 
 

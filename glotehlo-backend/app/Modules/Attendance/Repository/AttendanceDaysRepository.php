@@ -89,7 +89,7 @@ class AttendanceDaysRepository {
         $query = AttendanceDay::where('department_id', $departmentId)
                               ->whereBetween('date', [$from, $to]);
 
-        if ($internId !== null)
+        if ($internId!== null)
         {
              $query->where('user_id', $internId);
         }
@@ -98,7 +98,13 @@ class AttendanceDaysRepository {
              ->paginate($perPage);
     }
 
-    
+
+    public function findDayByDay (string $dayId) :AttendanceDay
+    {
+       return AttendanceDay :: where ('id', $dayId)
+                            ->first();
+    }
+
 
 
 
