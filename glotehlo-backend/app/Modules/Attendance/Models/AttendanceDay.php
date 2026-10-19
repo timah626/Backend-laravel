@@ -5,6 +5,7 @@ namespace App\Modules\Attendance\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 
+use App\Modules\Users\Models\User;
 class AttendanceDay extends Model
 {
     use HasUlids;
@@ -26,6 +27,12 @@ class AttendanceDay extends Model
         'reviewed_at' => 'datetime'
     ];
 }
+
+
+    public function intern()
+    {
+    return $this->belongsTo(User::class, 'user_id');
+    }
 
 
 }
