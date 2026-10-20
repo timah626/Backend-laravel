@@ -333,7 +333,7 @@ class InternHeadAttendanceService {
         $internDepartmentId = $intern ->department_id;
 
 
-       /* if ($headDepartmentId !== $internDepartmentId || $intern->active)
+        if ($headDepartmentId !== $internDepartmentId || !$intern->active)
         {
              throw new AppException
              (
@@ -341,7 +341,7 @@ class InternHeadAttendanceService {
                 'You are not allowed',
                  403
              );
-        } */
+        }
 
         $localDate = now()->setTimezone('Africa/Douala') ->toDateString();
 
@@ -373,7 +373,7 @@ class InternHeadAttendanceService {
                 'date'          => $localDate,
                 'first_in_at'   => now(),
                 'late'          => $late,
-                'state'         => 'mark_present',
+                'state'         => 'confirmed',
             ]);
 
 
