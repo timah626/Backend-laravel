@@ -272,7 +272,7 @@ class InternHeadAttendanceService {
 
 
 
-        if (! $this->userPermission->can($user, 'confirm_record',  $day))
+        if (!$this->userPermission->can($user, 'confirm_record',  $day))
         {
              throw new AppException
              (

@@ -21,7 +21,8 @@ class UserRoles
             'view_department_history',
             'confirm_record',
             'export_csv',
-            'list_interns'
+            'list_interns',
+            'mark_as_present'
         ],
 
         'admin' => [
@@ -38,7 +39,7 @@ class UserRoles
             'reset_password',
             'manage_settings',
             'review_applications',
-            'mark_as_present'
+
 
         ],
     ];
