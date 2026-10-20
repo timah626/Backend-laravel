@@ -61,7 +61,24 @@ class   InternHeadAttendanceController extends Controller {
         $confirmedAttendance = $this -> internHeadAttendanceService ->confirmAttendance($user, $dayId);
 
         return response()->json([
+             'message' => 'attendance CONFIRMED',
              'data' => $confirmedAttendance,
+        ], 200);
+
+
+    }
+
+
+      public function rejectAttendance (Request $request , string $dayId)
+    {
+
+        $user = $request -> user();
+
+        $rejectedAttendance = $this -> internHeadAttendanceService ->confirmAttendance($user, $dayId);
+
+        return response()->json([
+             'message' => 'attendance REJECTED',
+             'data' => $rejectedAttendance,
         ], 200);
 
 

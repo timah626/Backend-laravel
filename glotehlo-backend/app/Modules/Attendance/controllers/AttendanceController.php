@@ -52,7 +52,7 @@ public function   __construct (
 
 
 
-     public function getMyAttendanceToday(Request $request)
+    public function getMyAttendanceToday(Request $request)
      {
 
           $user =  $request ->user () ;
@@ -70,10 +70,8 @@ public function   __construct (
 
 
 
-     public function getAllMyAttendance (Request $request)
+    public function getAllMyAttendance (Request $request)
      {
-
-
 
         $user = $request -> user();
 
@@ -100,6 +98,9 @@ public function   __construct (
           ], 200);
 
     }
+
+
+    
 
 
 

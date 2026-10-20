@@ -87,6 +87,7 @@ class AttendanceDaysRepository {
 
 
         $query = AttendanceDay::with('intern')
+                              ->with('department')
                               ->where('department_id', $departmentId)
                               ->whereBetween('date', [$from, $to]);
 
@@ -105,6 +106,34 @@ class AttendanceDaysRepository {
        return AttendanceDay :: where ('id', $dayId)
                             ->first();
     }
+
+
+    public function MarkAttendanceAsConfirmed (AttendanceDay $day, string $userId) :AttendanceDay
+    {
+        $day -> state = 'confirmed';
+        $day -> reviewed_at = now();
+        $day->reviewed_by = $userId;
+        $day -> save();
+
+        return $day;
+
+    }
+
+
+     public function MarkAttendanceAsRejected (AttendanceDay $day, string $userId) :AttendanceDay
+    {
+        $day -> state = 'rejected';
+        $day -> reviewed_at = now();
+        $day->reviewed_by = $userId;
+        $day -> save();
+
+        return $day;
+
+    }
+
+
+
+
 
 
 

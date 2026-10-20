@@ -4,8 +4,9 @@ namespace App\Modules\Attendance\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
-
 use App\Modules\Users\Models\User;
+use App\Modules\Organisation\Models\Department;
+
 class AttendanceDay extends Model
 {
     use HasUlids;
@@ -33,6 +34,13 @@ class AttendanceDay extends Model
     {
     return $this->belongsTo(User::class, 'user_id');
     }
+
+
+     public function department()
+    {
+    return $this->belongsTo(Department::class, 'department_id');
+    }
+
 
 
 }
