@@ -367,9 +367,9 @@ class InternHeadAttendanceService {
         $late = $localTime->format('H:i:s') > $site->start_time;
 
         $day = $this->attendanceDayRepository->createAttendanceDay([
-                'user_id'       => $user->id,
+                'user_id'       => $intern->id,
                 'site_id'       => $department->site_id,
-                'department_id' => $user->department_id,
+                'department_id' => $intern->department_id,
                 'date'          => $localDate,
                 'first_in_at'   => now(),
                 'late'          => $late,
