@@ -69,7 +69,7 @@ class   InternHeadAttendanceController extends Controller {
     }
 
 
-      public function rejectAttendance (Request $request , string $dayId)
+    public function rejectAttendance (Request $request , string $dayId)
     {
 
         $user = $request -> user();
@@ -79,6 +79,22 @@ class   InternHeadAttendanceController extends Controller {
         return response()->json([
              'message' => 'attendance REJECTED',
              'data' => $rejectedAttendance,
+        ], 200);
+
+
+    }
+
+
+    public function markAsPresent (Request $request , string $internId , ?string $note)
+    {
+
+        $user = $request -> user();
+
+        $markedPresent = $this -> internHeadAttendanceService ->markAsPresent($user, $internId ,$note);
+
+        return response()->json([
+             'message' => 'marked Present',
+             'data' => $markedPresent,
         ], 200);
 
 

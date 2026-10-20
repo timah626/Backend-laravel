@@ -101,7 +101,7 @@ class AttendanceDaysRepository {
     }
 
 
-    public function findDayById (string $dayId) :AttendanceDay
+    public function findDayById (string $dayId):AttendanceDay
     {
        return AttendanceDay :: where ('id', $dayId)
                             ->first();
@@ -128,6 +128,15 @@ class AttendanceDaysRepository {
         $day -> save();
 
         return $day;
+
+    }
+
+    public function getAttendanceDayByUserId (string $localDate, string $internId) :? AttendanceDay
+    {
+
+    return AttendanceDay::where('user_id', $internId)
+                        ->where ('date', $localDate)
+                        ->first();
 
     }
 

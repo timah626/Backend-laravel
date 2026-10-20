@@ -12,6 +12,8 @@ use App\Modules\Users\Repository\Admin\AdminRepository;
 
 use  App\Modules\Onboarding\Services\PageResponse;
 
+use App\Modules\Organisation\Repository\OrganisationRepository;
+
 
 
 
@@ -27,7 +29,10 @@ class InternHeadAttendanceService {
 
         private UserPermission $userPermission,
 
-        private AdminRepository $adminRepository
+        private AdminRepository $adminRepository,
+
+        private OrganisationRepository $organisationRepository
+
 
 
 
@@ -296,10 +301,76 @@ class InternHeadAttendanceService {
 
 
 
+    public function markAsPresent ($user, string $internId, ?string $note)
+    {
+
+        if (! $this->userPermission->can($user, 'mark_as_present'))
+        {
+             throw new AppException
+             (
+                'FORBIDDEN',
+                'You are not allowed',
+                 403
+             );
+
+        }
+
+        $headDepartmentId = $user -> department_id;
+
+        $intern = $this -> adminRepository-> findById($internId);
+
+        $internDepartmentId = $intern ->department_id;
+
+
+        if ($headDepartmentId !== $internDepartmentId || $intern->active = true)
+        {
+             throw new AppException
+             (
+                'FORBIDDEN',
+                'You are not allowed',
+                 403
+             );
+        }
+
+        $localDate = now()->setTimezone('Africa/Douala') ->toDateString();
+
+        $day =  $this -> attendanceDayRepository ->getAttendanceDayByUserId ($localDate, $internId );
+
+        $department = $this->organisationRepository->findDepartment($internDepartmentId);
+
+        $site = $this->organisationRepository->findSite($department->site_id);
+
+        $localTime = now()->setTimezone('Africa/Douala');
+
+        if($day)
+        {
+
+            throw new AppException
+             (
+                'ALREADY_DECIDED',
+                'intern is already present',
+                 409
+             );
+        }
+
+        $late = $localTime->format('H:i:s') > $site->start_time;
+
+        $day = $this->attendanceDayRepository->createAttendanceDay([
+                'user_id'       => $user->id,
+                'site_id'       => $department->site_id,
+                'department_id' => $user->department_id,
+                'date'          => $localDate,
+                'first_in_at'   => now(),
+                'late'          => $late,
+                'state'         => 'mark_present',
+            ]);
 
 
 
+        return $day;
 
+
+    }
 
 
 
