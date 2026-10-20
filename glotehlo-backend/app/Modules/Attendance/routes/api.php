@@ -31,6 +31,8 @@ Route::middleware('auth:sanctum') -> get ('attendance/department', [InternHeadAt
 
 Route::middleware('auth:sanctum') -> post('attendance/days/{id}/confirm', [InternHeadAttendanceController::class, 'confirmAttendance']);
 
+Route::middleware('auth:sanctum') -> post('attendance/days/{id}/reject', [InternHeadAttendanceController::class, 'confirmAttendance']);
+
 
 Route::middleware('auth:sanctum') -> post('attendance/mark-present', [InternHeadAttendanceController::class, 'markAsPresent']);
 
