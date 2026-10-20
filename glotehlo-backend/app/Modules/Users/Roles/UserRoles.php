@@ -23,6 +23,7 @@ class UserRoles
             'export_csv',
             'list_interns',
             'mark_as_present'
+        
         ],
 
         'admin' => [
