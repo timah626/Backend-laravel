@@ -322,7 +322,7 @@ class InternHeadAttendanceService {
         $internDepartmentId = $intern ->department_id;
 
 
-        if ($headDepartmentId !== $internDepartmentId || $intern->active = true)
+        if ($headDepartmentId !== $internDepartmentId || $intern->active)
         {
              throw new AppException
              (
