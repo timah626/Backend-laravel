@@ -319,10 +319,21 @@ class InternHeadAttendanceService {
 
         $intern = $this -> adminRepository-> findById($internId);
 
+
+        if(!$intern)
+        {
+               throw new AppException
+             (
+                'NOT_FOUND',
+                'no such intern',
+                 404
+             );
+        }
+
         $internDepartmentId = $intern ->department_id;
 
 
-        if ($headDepartmentId !== $internDepartmentId || $intern->active)
+       /* if ($headDepartmentId !== $internDepartmentId || $intern->active)
         {
              throw new AppException
              (
@@ -330,7 +341,7 @@ class InternHeadAttendanceService {
                 'You are not allowed',
                  403
              );
-        }
+        } */
 
         $localDate = now()->setTimezone('Africa/Douala') ->toDateString();
 
