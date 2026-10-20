@@ -95,7 +95,7 @@ class   InternHeadAttendanceController extends Controller {
 
         $user = $request -> user();
 
-        $markedPresent = $this -> internHeadAttendanceService ->markAsPresent($user, $validatedData['intern_id'] ,$validatedData['note']);
+        $markedPresent = $this -> internHeadAttendanceService ->markAsPresent($user, $validatedData['intern_id'] ,$validatedData['note']?? null);
 
         return response()->json([
              'message' => 'marked Present',
