@@ -74,15 +74,19 @@ class AdminRepository {
 
 
 
+   
 
     public function findInternsByDepartment(string $departmentId): Collection
     {
          return User::where('department_id', $departmentId)
+            ->with('suggestedDepartment:id,name', 'site:id,name')
             ->where('role', 'intern')
             ->where('active', true)
             ->orderBy('name')
             ->get();
     }
+
+
 
    // this is a cute and useless function of mine.
      public function getAllInterns(): Collection
@@ -153,7 +157,7 @@ class AdminRepository {
 
 
         ->select('id', 'name', 'email', 'role', 'department_id', 'site_id', 'active' ,'start_date', 'end_date', 'school', 'major'  , 'level')
-        ->orderBy('name')
+        ->orderByDesc('created_at')
         ->paginate(
             $filters['per_page'] ?? 10,
             ['*'],
@@ -165,7 +169,6 @@ class AdminRepository {
 
 
 
-//
 
 
 

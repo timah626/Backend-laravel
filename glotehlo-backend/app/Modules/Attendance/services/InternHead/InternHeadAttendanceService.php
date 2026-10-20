@@ -79,10 +79,19 @@ class InternHeadAttendanceService {
                         'name' => $intern->name,
                     ],
 
+
+                  'department'  => $intern->suggestedDepartment?->only(['id', 'name']),
+                  'site'        => $intern->site?->only(['id', 'name']),
+
+                  'date'         =>$day?->date,
                   'first_in_at' => $day?->first_in_at,
                   'last_out_at' => $day?->last_out_at,
                   'state'       => $day?->state ?? 'not_in',
                   'day'         => $day,
+
+
+
+
     ];
 }
 
@@ -235,23 +244,54 @@ class InternHeadAttendanceService {
         }
 
 
+        return $this->attendanceDayRepository->MarkAttendanceAsConfirmed($day, $userId);
+
+    }
 
 
 
+    public function rejectAttendance ($user, string $dayId)
+    {
+        $day = $this -> attendanceDayRepository -> findDayById($dayId);
+        $userId = $user -> id;
+
+        if (!$day)
+        {
+            throw new AppException
+            (
+            'NOT_FOUND',
+            'Attendance record not found',
+             404
+            );
+        }
 
 
 
+        if (! $this->userPermission->can($user, 'confirm_record',  $day))
+        {
+             throw new AppException
+             (
+                'FORBIDDEN',
+                'You are not allowed',
+                 403
+             );
+
+        }
+
+        if ($day->state !== 'unverified' && $day->state !== 'pending')
+        {
+            throw new AppException
+             (
+                'ALREADY_DECIDED',
+                'this Attendance has been checked already',
+                 409
+             );
 
 
+        }
 
 
-
-
-
-
-
-
-
+        return $this->attendanceDayRepository->MarkAttendanceAsRejected($day, $userId);
     }
 
 
