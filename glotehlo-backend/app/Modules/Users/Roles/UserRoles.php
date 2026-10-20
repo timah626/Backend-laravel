@@ -38,7 +38,8 @@ class UserRoles
             'reset_password',
             'manage_settings',
             'review_applications',
-            
+            'mark_as_present'
+
         ],
     ];
 }
