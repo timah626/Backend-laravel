@@ -60,7 +60,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'api/attendance/department', //get department history
             'api/attendance/days/*/confirm',
             'api/attendance/mark-present',
-            'api/attendance/days/{id}/reject'
+            'api/attendance/days/*/reject'
         ]
     );
 })
