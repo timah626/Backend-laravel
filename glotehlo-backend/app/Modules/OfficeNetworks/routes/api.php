@@ -17,7 +17,19 @@ Route::middleware('auth:sanctum')
 
 
 
-//claude's code // lets test this function though
+
+
+
+
+
+
+
+
+
+
+
+    
+//claude's code // lets test this function to see the ip address of the user sending the request
     Route::get('/whoami-ip', function (Illuminate\Http\Request $request) {
     return response()->json([
         'ip' => $request->ip(),

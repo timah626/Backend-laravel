@@ -17,7 +17,7 @@ class RemoveRejectedApplications extends Command
      public function handle(ApplicationRepository $applicationRepository)
      {
          $cutoff = now()->subDays(10);
-         $expired = $applicationRepository->findRejectedBeforeTenDays($cutoff);
+         $expired = $applicationRepository->findRejectedTenDaysAgo($cutoff);
      }
 
 

@@ -89,7 +89,7 @@ class ApplicationRepository
     }
 
 
-    public function findRejectedBeforeTenDays (Carbon $cutoff) :Collection
+    public function findRejectedTenDaysAgo (Carbon $cutoff) :Collection
     {
         return Application :: where ('status', 'rejected')
                            -> where ( 'rejected_at' ,'<', $cutoff)

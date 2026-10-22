@@ -2,10 +2,13 @@
 namespace App\Modules\OfficeNetworks\Services;
 
 
+use App\Modules\Organisation\Repository\OrganisationRepository;
 
 use App\Modules\OfficeNetworks\Repository\OfficeNetworkRepository;
 
 use App\Modules\Users\Services\UserPermission;
+
+use App\Exceptions\AppException;
 
 
 
@@ -14,8 +17,9 @@ class OfficeNetworkService {
 
     public function __construct
     (
+      private OrganisationRepository $organisationRepository,
 
-    private UserPermission $userPermission,
+      private UserPermission $userPermission,
 
    private OfficeNetworkRepository $officeNetworkRepository
     )
@@ -29,8 +33,27 @@ class OfficeNetworkService {
 
         if (! $this->userPermission->can($user, 'manage_office_networks'))
          {
-             abort(403, 'Forbidden');
-        ;}
+              throw new AppException
+             (
+                'FORBIDDEN',
+                'You are not allowed',
+                 403
+             );
+        }
+
+
+
+
+        if (!$this ->organisationRepository ->findSite($siteId))
+        {
+                 throw new AppException
+             (
+                'NOT_FOUND',
+                'Site not found',
+                 404
+             );
+        }
+
 
 
 

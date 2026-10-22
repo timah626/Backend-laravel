@@ -74,7 +74,7 @@ class   InternHeadAttendanceController extends Controller {
 
         $user = $request -> user();
 
-        $rejectedAttendance = $this -> internHeadAttendanceService ->confirmAttendance($user, $dayId);
+        $rejectedAttendance = $this -> internHeadAttendanceService ->rejectAttendance($user, $dayId);
 
         return response()->json([
              'message' => 'attendance REJECTED',
@@ -99,7 +99,7 @@ class   InternHeadAttendanceController extends Controller {
 
         return response()->json([
              'message' => 'marked Present',
-             'data' => $markedPresent,
+             'data'    => $markedPresent,
         ], 200);
 
 

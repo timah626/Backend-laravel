@@ -39,8 +39,6 @@ return Application::configure(basePath: dirname(__DIR__))
             'api/sites/*/departments',
             'api/sites/*/addnetworks',
             'api/sites/*/allnetworks',
-            'api/clock-in',
-            'api/clock-out',
             'api/applications',
             'api/applications/*/approve',
             'api/delete',
@@ -60,7 +58,10 @@ return Application::configure(basePath: dirname(__DIR__))
             'api/attendance/department', //get department history
             'api/attendance/days/*/confirm',
             'api/attendance/mark-present',
-            'api/attendance/days/*/reject'
+            'api/attendance/days/*/reject',
+
+
+            'api/whoami-ip'   //test route
         ]
     );
 })
@@ -80,7 +81,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'message' => 'The given data was invalid.',
             'fields' => $e->errors(),//it retrieves the individual validation errors including their fields
         ],
-    ], 422);    //422 yeah ..   unfuckingprocessable
+    ], 422);    //422 yeah  unfuckingprocessable
 });
 
 
