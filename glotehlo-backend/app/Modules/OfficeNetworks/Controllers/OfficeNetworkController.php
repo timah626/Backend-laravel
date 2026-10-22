@@ -4,7 +4,6 @@ namespace App\Modules\OfficeNetworks\Controllers;
 
 use  App\Http\Controllers\Controller;
 
-use App\Modules\Organisation\Repository\OrganisationRepository;
 
 
 use App\Modules\OfficeNetworks\Services\OfficeNetworkService;
@@ -22,7 +21,7 @@ public function __construct (
 
 private OfficeNetworkService $officeNetworkService,
 
-private OrganisationRepository $organisationRepository
+
 
 ) {}
 
@@ -31,9 +30,6 @@ public function addCurrentConnection (Request $request   , string $siteId)
 
 {
 
-if (!$this ->organisationRepository ->findSite($siteId)) {
-    return(['no site found'] );
-}
 
 
 $request->validate([
