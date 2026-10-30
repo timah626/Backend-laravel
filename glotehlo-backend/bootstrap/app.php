@@ -64,7 +64,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'api/whoami-ip'   //test route
         ]
     );
-})
+    })
 
 
 
