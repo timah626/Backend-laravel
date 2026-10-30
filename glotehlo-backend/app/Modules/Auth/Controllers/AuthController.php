@@ -8,6 +8,8 @@ use App\Modules\Auth\Services\AuthService;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Log;
+
 
 
 class AuthController extends Controller {
@@ -31,6 +33,12 @@ class AuthController extends Controller {
 
 
          $request->session()->regenerate();
+
+         Log::info('SESSION COOKIE DEBUG', [
+          'same_site' => config('session.same_site'),
+          'secure' => config('session.secure'),
+          'manager_same_site' => app('session')->getSessionConfig()['same_site'],
+         ]);
 
          return response() -> json
          ([
