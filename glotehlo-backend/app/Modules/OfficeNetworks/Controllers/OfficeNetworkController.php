@@ -32,18 +32,18 @@ public function addCurrentConnection (Request $request   , string $siteId)
 
 
 
-$request->validate([
-    'label' => ['required', 'string'],
+    $request->validate([
+        'label' => ['required', 'string'],
 
-]);
+    ]);
 
-$networks = $this -> officeNetworkService->addCurrentConnection (
+    $networks = $this -> officeNetworkService->addCurrentConnection (
 
-   $user = $request -> user (),
-   $ip =  $request -> ip(),
-   $label = $request->input('label'),
-   $siteId
-);
+        $user = $request -> user (),
+        $ip =  $request -> ip(),
+        $label = $request->input('label'),
+        $siteId
+        );
 
 
 
@@ -53,7 +53,6 @@ $networks = $this -> officeNetworkService->addCurrentConnection (
     ], 201));
 
 
-
 }
 
 
@@ -61,12 +60,10 @@ $networks = $this -> officeNetworkService->addCurrentConnection (
 public function getAllNetworkBySite (Request $request , string $siteId) {
 
 
-
    $networks = $this->officeNetworkService->getAllNetworkBySite(
         $request->user(),
         $siteId,
     );
-
 
 
     return response()->json(['data' => $networks], 200);

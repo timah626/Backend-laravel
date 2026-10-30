@@ -23,13 +23,14 @@ class EvidenceAndScoringService {
     public function score($user, $ip, string $siteId, ?string $deviceToken)
     {
         $network = $this->officeNetworkService->matchIp($ip, $siteId);
+
         $strong  = $network && $network->strength === 'strong';
 
         $device = $this->checkDevices($user, $deviceToken);
 
         if ($strong)
         {
-            $state = 'clean';            // known or new device: strong presence wins
+            $state = 'clean';            // known or new device
         }
         elseif ($device['known'])
         {

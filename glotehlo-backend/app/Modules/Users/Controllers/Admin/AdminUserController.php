@@ -60,7 +60,7 @@ class AdminUserController extends Controller {
 
         $user = $request -> user();
         $term = $validatedData['search'];
-        $page = $request->query('page', 1);      //one is kinda like the default page number .. you know how anoyying  users are, gota be rechecking and putting default values everywhere
+        $page = $request->query('page', 1);      
 
 
         $searchResult = $this -> adminUserService -> searchUser ($user, $term);

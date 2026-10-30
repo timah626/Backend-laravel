@@ -60,11 +60,9 @@ class AdminRepository {
 
 
     public function deleteSessions(string $userId)
-        {
-
+    {
             DB::table('sessions')->where('user_id', $userId)->delete();
-
-        }
+    }
 
 
     public function createUser ( array $data) :?User
@@ -74,7 +72,7 @@ class AdminRepository {
 
 
 
-   
+
 
     public function findInternsByDepartment(string $departmentId): Collection
     {
@@ -88,7 +86,7 @@ class AdminRepository {
 
 
 
-   // this is a cute and useless function of mine.
+   // this is a cute and useless function of mine not gonna be needing it.
      public function getAllInterns(): Collection
 
      {
@@ -101,7 +99,7 @@ class AdminRepository {
 
 
 
-
+  /// even this one, a cute function of mine
     public function getSearchedUser (string $search, int $perPage = 10) : LengthAwarePaginator
     {
 
@@ -174,11 +172,7 @@ class AdminRepository {
 
 
 
-
-
-
-
-    //test function ooo
+    //test function  ooo not needed by the way
     public function DeleteUserByEmail (string $email)
     {
         return User::where('email', strtolower($email))->delete();

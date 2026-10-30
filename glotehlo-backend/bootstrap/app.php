@@ -82,7 +82,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'fields' => $e->errors(),//it retrieves the individual validation errors including their fields
         ],
     ], 422);    //422 yeah  unfuckingprocessable
-});
+    });
 
 
       $exceptions->render(function (AuthenticationException $e) {
@@ -92,7 +92,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'message' => 'Unauthenticated.',
         ],
     ], 401);
-});
+    });
 
 
        $exceptions->render(function (AppException $e) {

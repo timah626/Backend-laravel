@@ -13,10 +13,9 @@ class UserServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
 
 
-
-        
-        Route::middleware('api')
+        Route::middleware('api')      //so this one deals automatically with authentication, routing and late limiting
             ->prefix('api')
             ->group(__DIR__ . '/routes/api.php');
     }
 }
+

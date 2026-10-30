@@ -22,7 +22,7 @@ Route::middleware('auth:sanctum')
 
 
 
-
+//another test route
 Route::middleware('auth:sanctum')
  ->get('/users', [AdminUserController::class, 'searchUsers']) ;
 

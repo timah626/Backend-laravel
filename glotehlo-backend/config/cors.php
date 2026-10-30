@@ -20,7 +20,9 @@ return [
     'paths' => ['api/*', 'sanctum/csrf-cookie'],
 
 
-    'allowed_origins' => ['http://localhost:3000'],
+    'allowed_origins' => [
+     'http://localhost:3000',
+     'https://glotelho-intern-management.vercel.app',],
 
 // her exact address and port
      'supports_credentials' => true,
@@ -37,6 +39,6 @@ return [
 
     'max_age' => 0,
 
-  
+
 
 ];

@@ -4,7 +4,6 @@
 
 namespace App\Modules\Attendance\services;
 
-use App\Modules\Users\Repository\Admin\AdminRepository;
 use App\Modules\Attendance\Repository\AttendanceEventRepository;
 use App\Modules\Organisation\Repository\OrganisationRepository;
 use App\Modules\Attendance\Repository\AttendanceDaysRepository;
@@ -163,7 +162,7 @@ public function __construct (
             'matched_network_id' => $score['matchedNetworkId'],
             'flags'              => array_merge($flags, $score['flags']),
             'idempotency_key'    => $data['idempotency_key'],
-            'device_id' => $score['deviceId'],
+            'device_id'          => $score['deviceId'],
         ]);
 
         $localTime = $event->server_time->copy()->setTimezone($site->timezone);
@@ -181,6 +180,7 @@ public function __construct (
                 'state'         => $event->state,
             ]);
         }
+
 
 
         if ($data['kind'] === 'out' && $day)
@@ -211,6 +211,7 @@ public function __construct (
 
          }
 
+
         $userId = $user -> id;
 
         $departmentId =  $user -> department_id;
@@ -221,7 +222,6 @@ public function __construct (
 
         if (!$site)
         {
-
 
             throw new AppException
             (

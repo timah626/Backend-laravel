@@ -17,19 +17,18 @@ class AttendanceDaysRepository {
 
 
 
- public function findAttendanceOfUserByDay(string $userId, string $date): ?AttendanceDay
-{
-    return AttendanceDay::where('user_id', $userId)
-        ->where('date', $date)
-        ->first();
-}
+    public function findAttendanceOfUserByDay(string $userId, string $date): ?AttendanceDay
+    {
+         return AttendanceDay::where('user_id', $userId)
+             ->where('date', $date)
+             ->first();
+    }
 
 
 
 
     public function createAttendanceDay (array $data) : AttendanceDay
-     {
-
+    {
 
          return AttendanceDay::create ($data);
 
@@ -103,8 +102,8 @@ class AttendanceDaysRepository {
 
     public function findDayById (string $dayId):AttendanceDay
     {
-       return AttendanceDay :: where ('id', $dayId)
-                            ->first();
+        return AttendanceDay :: where ('id', $dayId)
+                              ->first();
     }
 
 
@@ -120,7 +119,7 @@ class AttendanceDaysRepository {
     }
 
 
-     public function MarkAttendanceAsRejected (AttendanceDay $day, string $userId) :AttendanceDay
+    public function MarkAttendanceAsRejected (AttendanceDay $day, string $userId) :AttendanceDay
     {
         $day -> state = 'rejected';
         $day -> reviewed_at = now();
