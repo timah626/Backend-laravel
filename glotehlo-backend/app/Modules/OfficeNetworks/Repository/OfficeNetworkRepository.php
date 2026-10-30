@@ -46,7 +46,7 @@ public function findMatchingIp ( $ip,    $siteId,) {
 
      return OfficeNetwork::where('site_id', $siteId)
      -> where ('status',  'trusted' )
-     -> whereRaw('network >>= ?', [$ip])  //God abeg   Laravel, I need to give PostgreSQL a SQL condition that Eloquent doesn't have a normal where() method for
+     -> whereRaw('network >>= ?', [$ip])  
      ->first();
      }
 

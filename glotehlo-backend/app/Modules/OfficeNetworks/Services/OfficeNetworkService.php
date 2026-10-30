@@ -46,7 +46,7 @@ class OfficeNetworkService {
 
         if (!$this ->organisationRepository ->findSite($siteId))
         {
-                 throw new AppException
+             throw new AppException
              (
                 'NOT_FOUND',
                 'Site not found',
@@ -114,7 +114,12 @@ class OfficeNetworkService {
 
         if (! $this->userPermission->can($user, 'manage_office_networks'))
          {
-             abort(403, 'Forbidden');
+             throw new AppException
+             (
+                'FORBIDDEN',
+                'forbidden dearest',
+                 403
+             );
          ;}
 
         $networks =$this->officeNetworkRepository->getAllNetworks($siteId);

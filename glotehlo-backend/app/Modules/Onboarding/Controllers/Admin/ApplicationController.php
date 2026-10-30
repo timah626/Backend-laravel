@@ -150,13 +150,10 @@ class ApplicationController extends Controller {
             [  'message' => 'okay, returned',
                'data' => $applications
             ];
+
+
+            
     }
-
-
-
-
-
-
 
 
 

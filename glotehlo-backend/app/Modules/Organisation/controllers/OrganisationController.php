@@ -94,7 +94,6 @@ class OrganisationController extends Controller {
 
       $departments = $this -> organisationService -> getDepartmentsBySlug ( $slug);
 
-
       return response()->json(['data' => $departments], 200);
 
     }

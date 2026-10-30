@@ -214,20 +214,10 @@ class  ApplicationService {
           ]);
 
 
-
-
-
-
-
-
-
-
-
-
     }
 
 
-    //my debugging services
+    //my debugging service
     public function deleteApplication (string $applicationId)
      {
         $existingApplication = $this -> applicationRepository -> deleteApplicationById($applicationId);
@@ -281,10 +271,6 @@ class  ApplicationService {
 
     }
 
-
-
-
-    
 
 }
 

@@ -23,7 +23,7 @@ class AttendanceEventRepository {
 
 public function createEvent(array $data)
 {
-    // see this one laat ?? we gotta do this one sep...to change "array" to array.. yeah i get this one
+    //see this one laat ?? joining the array elements together to form a single string
     $data['flags'] = '{' . implode(',', $data['flags']) . '}';
 
     $event = AttendanceEvent::create($data);

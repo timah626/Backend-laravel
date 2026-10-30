@@ -2,11 +2,8 @@
 
 namespace App\Modules\Attendance;
 use Illuminate\Support\Facades\Route;
-
-
-
-
 use Illuminate\Support\ServiceProvider;
+
 
 class AttendanceServiceProvider extends ServiceProvider
 {
@@ -16,11 +13,9 @@ class AttendanceServiceProvider extends ServiceProvider
 
 
 
-        Route::middleware('api')
+        Route::middleware('api') //returning json data to frontends
             ->prefix('api')
             ->group(__DIR__ . '/routes/api.php');
-
-
 
 
     }

@@ -13,12 +13,13 @@ use App\Exceptions\AppException;
 
 use  App\Modules\Onboarding\Services\PageResponse;
 
-use Illuminate\Support\Facades\DB;
+
 
 use App\Modules\Users\Repository\Admin\AdminRepository;
 
 
 class AdminUserService {
+
    public function __construct
     (
 
@@ -31,13 +32,13 @@ class AdminUserService {
    ){}
 
 
-   public function getInternsByDepartment($user,string $departmentId )
+   public function getInternsByDepartment($user,   string $departmentId )
 
    {
 
 
         if (! $this->userPermission->can($user, 'list_interns'))
-         {
+        {
              throw new AppException
              (
                 'FORBIDDEN',
@@ -45,11 +46,10 @@ class AdminUserService {
                  403
              );
 
-         }
+        }
 
 
         $department = $this->organisationRepository->findDepartment($departmentId);
-
 
         if (!$department)
         {
@@ -72,7 +72,6 @@ class AdminUserService {
              );
 
         }
-
 
 
         return $this->adminRepository->findInternsByDepartment($departmentId);
@@ -116,7 +115,7 @@ class AdminUserService {
         'level'                                      => $intern->level,
 
         'major'                                      => $intern->major,
-        
+
         'department'                                 => ['id' => $intern->suggestedDepartment?->id, 'name' => $intern->suggestedDepartment?->name],
 
         'site'                                       => ['id' => $intern->site?->id, 'name'=>$intern->site->name],
@@ -163,7 +162,7 @@ class AdminUserService {
    public function createAccount ( array $draft)
 
    {
-      //just forgive me for doing this man
+      //damn it
        $department = $this->organisationRepository->findDepartment($draft['department_id']);
 
 
@@ -243,7 +242,6 @@ class AdminUserService {
         return PageResponse::from($result);
 
 
-
    }
 
 
@@ -269,9 +267,9 @@ class AdminUserService {
 
          }
 
-
         $filters['per_page'] = $filters['per_page'] ?? 10;
         $filters['page'] = $filters['page'] ?? 1;
+
 
         $result = $this->adminRepository->findInterns($filters);
 
@@ -283,7 +281,7 @@ class AdminUserService {
 
 
 
-   //test function
+   //test function  ooooooooo
    public function deleteUser (string $email)
    {
 

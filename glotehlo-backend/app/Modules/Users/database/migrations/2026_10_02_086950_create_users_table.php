@@ -21,7 +21,7 @@ return new class extends Migration
                 $table->string('email')->unique();
 
                 $table->string('password');
-            
+
                 $table->enum('role', ['intern_head', 'intern', 'admin'])->default('intern');
 
                 $table->boolean('temp_password_active')->default(true);

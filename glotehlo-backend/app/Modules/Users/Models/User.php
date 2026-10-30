@@ -54,7 +54,7 @@ class User extends Authenticatable
 
     public function site()
     {
-         return $this->belongsTo(Site::class, 'site_id');
+         return $this->belongsTo(Site::class, 'site_id');   //belongs to defines a one to one or a one to many relationship
     }
 
 
@@ -68,19 +68,16 @@ class User extends Authenticatable
      *
      * @return array<string, string>
      */
-     protected function casts(): array
+     protected function casts(): array    // chaii , so here we are basically defining how Laravel should automatically convert certain values when working with your model
 
 
-
-
-
-{
-    return [
-        'password' => 'hashed',
-        'active' => 'boolean',
-        'temp_password_active' => 'boolean',
-        'start_date' => 'date',
-        'end_date' => 'date',
+     {
+         return [
+            'password' => 'hashed',
+            'active' => 'boolean',
+            'temp_password_active' => 'boolean',
+            'start_date' => 'date',
+            'end_date' => 'date',
     ];
-}
+    }
 }
