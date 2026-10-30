@@ -33,8 +33,8 @@ class AuthController extends Controller {
 
 
 
-         config(['session.same_site' => 'none', 'session.secure' => true]);
-         
+         //config(['session.same_site' => 'none', 'session.secure' => true]);
+
          $request->session()->regenerate();
 
 
