@@ -31,6 +31,10 @@ class AuthController extends Controller {
          $user = $this -> authService -> login ($validatedData);
 
 
+
+
+         config(['session.same_site' => 'none', 'session.secure' => true]);
+         
          $request->session()->regenerate();
 
 
