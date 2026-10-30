@@ -22,7 +22,7 @@ return [
 
     'allowed_origins' => [
      'http://localhost:3000',
-     'https://glotelho-intern-management.vercel.app',],
+     'https://glotelho-intern-management.vercel.app'],
 
 // her exact address and port
      'supports_credentials' => true,
