@@ -22,7 +22,7 @@ class AuthController extends Controller {
 
 
     public function login (Request $request) {
-         $validatedData = $request -> validate([
+        $validatedData = $request -> validate([
 
         'email' => 'required|email',
         'password' => 'required|min:8',
@@ -32,8 +32,8 @@ class AuthController extends Controller {
 
 
 
-         //this is a work around , because i am unable to change the configuration setting. This is happening because my frontend runs on another site . after hours of debugging and putting noe evrywhere, the browser still shows me that the session cookies are issued by sameSite: lax
-         config(['session.same_site' => 'none', 'session.secure' => true]);
+         //this is a work around , because i am unable to change the configuration setting. This is happening because my frontend runs on another site . after hours of debugging and putting none evrywhere, the browser still shows me that the session cookies are issued by sameSite: lax to prevent cross site attacks
+        // config(['session.same_site' => 'none', 'session.secure' => true]);
 
          $request->session()->regenerate();
 
