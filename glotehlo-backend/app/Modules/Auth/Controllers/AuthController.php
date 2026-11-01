@@ -33,7 +33,7 @@ class AuthController extends Controller {
 
 
          //this is a work around , because i am unable to change the configuration setting. This is happening because my frontend runs on another site . after hours of debugging and putting none evrywhere, the browser still shows me that the session cookies are issued by sameSite: lax to prevent cross site attacks
-        // config(['session.same_site' => 'none', 'session.secure' => true]);
+         config(['session.same_site' => 'none', 'session.secure' => true]);
 
          $request->session()->regenerate();
 
